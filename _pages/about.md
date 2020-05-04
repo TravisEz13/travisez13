@@ -4,10 +4,7 @@ title: About Me
 permalink: /about/
 ---
 
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
+![](https://en.gravatar.com/userimage/27750845/0e675e836fda5b82555b24252ba28bde.jpeg)
+I'm Travis Plunk. I'm a Senior Software Engineer at Microsoft. I've worked at Microsoft for over 19+ years. I've worked on Commerce Server, Windows Update, Windows Server Update Service, PowerShell Desired State Configuration and currently working on PowerShell Core.
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
-
-
-
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+* [Blog Posts](/categories/)
