@@ -10,11 +10,11 @@ title: fastpages
 description: An easy to use blogging platform with support for Jupyter Notebooks.
 github_username: TravisEz13
 # you can comment the below line out if your repo name is not different than your baseurl
-#github_repo: "travisez13"
+github_repo: "travisez13"
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
-url: "https://fastpages.ez13.net" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://fastpages.ez13.net" # the base hostname & protocol for your site, e.g. http://example.com
 
 ###########################################################
 #########  Special Instructions for baseurl ###############
