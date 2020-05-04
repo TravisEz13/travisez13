@@ -34,13 +34,13 @@ url: "https://fastpages.ez13.net" # the base hostname & protocol for your site, 
 #
 # 3. You must replace the parameter `baseurl` in _action_files/settings.ini with the same value as you set here but WITHOUT QUOTES.
 #
-baseurl: "/" # the subpath of your site, e.g. "/blog".
+baseurl: "" # the subpath of your site, e.g. "/blog".
 
 # Github and twitter are optional:
 minima:
   social_links:
-    twitter: fastdotai
-    github: fastai
+    twitter: TravisPlunk
+    github: TravisEz13
 
 # Set this to true to get LaTeX math equation support
 use_math: 
