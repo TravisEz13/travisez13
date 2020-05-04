@@ -1,3 +1,11 @@
+---
+toc: true
+layout: post
+description: Finding machines not compliant with a specific security bulletin
+categories: [WSUS]
+title: Finding machines not compliant with a specific security bulletin
+---
+
 # Finding machines not compliant with a specific security bulletin
 
 Originally posted on [TechNet](https://blogs.technet.microsoft.com/wsus/2008/07/07/finding-machines-not-compliant-with-a-specific-security-bulletin/).
