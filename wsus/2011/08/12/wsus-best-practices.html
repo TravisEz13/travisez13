@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Best Practices for Securing WSUS with SSL | TravisEz13</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Best Practices for Securing WSUS with SSL" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Best Practices for Securing WSUS with SSL" />
+<meta property="og:description" content="Best Practices for Securing WSUS with SSL" />
+<link rel="canonical" href="http://fastpages.ez13.net/wsus/2011/08/12/wsus-best-practices.html" />
+<meta property="og:url" content="http://fastpages.ez13.net/wsus/2011/08/12/wsus-best-practices.html" />
+<meta property="og:site_name" content="TravisEz13" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-08-12T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Best Practices for Securing WSUS with SSL","@type":"BlogPosting","headline":"Best Practices for Securing WSUS with SSL","dateModified":"2011-08-12T00:00:00-05:00","datePublished":"2011-08-12T00:00:00-05:00","url":"http://fastpages.ez13.net/wsus/2011/08/12/wsus-best-practices.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://fastpages.ez13.net/wsus/2011/08/12/wsus-best-practices.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://fastpages.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Best Practices for Securing WSUS with SSL | TravisEz13</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Best Practices for Securing WSUS with SSL" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Best Practices for Securing WSUS with SSL" />
+<meta property="og:description" content="Best Practices for Securing WSUS with SSL" />
+<link rel="canonical" href="http://fastpages.ez13.net/wsus/2011/08/12/wsus-best-practices.html" />
+<meta property="og:url" content="http://fastpages.ez13.net/wsus/2011/08/12/wsus-best-practices.html" />
+<meta property="og:site_name" content="TravisEz13" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-08-12T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Best Practices for Securing WSUS with SSL","@type":"BlogPosting","headline":"Best Practices for Securing WSUS with SSL","dateModified":"2011-08-12T00:00:00-05:00","datePublished":"2011-08-12T00:00:00-05:00","url":"http://fastpages.ez13.net/wsus/2011/08/12/wsus-best-practices.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://fastpages.ez13.net/wsus/2011/08/12/wsus-best-practices.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="http://fastpages.ez13.net/feed.xml" title="TravisEz13" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+<script type="text/javascript">
+require.config({
+  paths: {
+    jquery: 'https://code.jquery.com/jquery-3.5.0.min',
+    plotly: 'https://cdn.plot.ly/plotly-latest.min'
+  },
+
+  shim: {
+    plotly: {
+      deps: ['jquery'],
+      exports: 'plotly'
+    }
+  }
+});
+</script>
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">TravisEz13</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Best Practices for Securing WSUS with SSL</h1><p class="page-description">Best Practices for Securing WSUS with SSL</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2011-08-12T00:00:00-05:00" itemprop="datePublished">
+        Aug 12, 2011
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#WSUS">WSUS</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h2"><a href="#additional-considerations-while-deploying-wsus-with-ssl">Additional Considerations while Deploying WSUS with SSL</a></li>
+</ul><h2 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p>One of the questions that always come up during the planning phase of WSUS is how to secure the communication between WSUS and the clients. The general guidelines for this deployment are documented at <a href="http://technet.microsoft.com/en-us/library/cc708467%28WS.10%29.aspx">Securing WSUS with the Secure Sockets Layer Protocol</a> article and you should always read it first. The goal of this article is to extent this list and highlight additional considerations that you should take while planning this type of deployment.</p>
+
+<h2 id="additional-considerations-while-deploying-wsus-with-ssl">
+<a class="anchor" href="#additional-considerations-while-deploying-wsus-with-ssl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Additional Considerations while Deploying WSUS with SSL</h2>
+
+<ul>
+  <li>Use an <a href="http://en.wikipedia.org/wiki/FQDN">FQDN</a> wherever you refer to the WSUS server, including the common name used to create the SSL Certificate even on an intranet.</li>
+  <li>Require SSL so that you know your connections are secure.</li>
+  <li>Use a certificate chained to already known trusted root, issued from a certificate authority that maintains <a href="http://en.wikipedia.org/wiki/Certificate_revocation_list">CRL</a> (in case your certificate becomes compromised).</li>
+</ul>
+
+<p>Consider the Algorithm and Certificate Key length of the certificate you are using:</p>
+
+<ul>
+  <li>“The National Institute of Standards and Technology (NIST) has issued a statement that says SSL certificates with a key length of 1,024 bits or fewer will be insufficient for security after December 31, 2010, because NIST estimates that computers will be powerful enough to perform a brute-force crack of keys of that size.” http://www.windowsitpro.com/article/security/Are-Your-SSL-Certificates-Secure</li>
+  <li>The research … has the specific purpose of convincing Certification Authorities to drop <code class="highlighter-rouge">MD5</code> and move on to more secure algorithms, such as <del><code class="highlighter-rouge">SHA-1</code></del>, <code class="highlighter-rouge">SHA-2</code>, or the upcoming <code class="highlighter-rouge">SHA-3</code>. http://news.softpedia.com/news/SSL-Security-Broken-101075.shtml</li>
+</ul>
+
+  </div><a class="u-url" href="/wsus/2011/08/12/wsus-best-practices.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Travis&#39; Blog</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/TravisEz13" title="TravisEz13"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/TravisPlunk" title="TravisPlunk"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
