@@ -25,7 +25,7 @@ follow the steps below:
 1. Sign in on Windows Server “8” Beta
 
 1. On the taskbar click Windows PowerShell button.
-   ![8156.image_1FBE9383](/content/images/2019/02/8156.image_1FBE9383.png)
+   ![8156.image_1FBE9383](/images/wsus-install.png)
 
 1. In the PowerShell Console type `Install-WindowsFeature -Name UpdateServices, UpdateServices-Ui` and press **ENTER**.
 
