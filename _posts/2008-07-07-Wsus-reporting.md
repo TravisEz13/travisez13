@@ -10,7 +10,7 @@ title: Finding machines not compliant with a specific security bulletin
 
 Originally posted on [TechNet](https://blogs.technet.microsoft.com/wsus/2008/07/07/finding-machines-not-compliant-with-a-specific-security-bulletin/).
 
-I read Marc’s [post about Compliance Reporting](http://blogs.technet.com/wsus/archive/2008/06/20/baseline-compliance-report-using-public-wsus-views.aspx) and it was similar to a problem I deal with in my job.  Part of my job is to run Update Management on one of the domains consisting of around 12,000 managed computers at Microsoft using WSUS.  We do this in order to validate WSUS (and similar products) in an environment with real users.  Another group at Microsoft audits my compliance, and often request a list of non-compliant machines for specific security bulletins.  I have adapted Marc’s SQL script to do just that.
+I read Marc’s [BROKEN - post about Compliance Reporting](http://blogs.technet.com/wsus/archive/2008/06/20/baseline-compliance-report-using-public-wsus-views.aspx) and it was similar to a problem I deal with in my job.  Part of my job is to run Update Management on one of the domains consisting of around 12,000 managed computers at Microsoft using WSUS.  We do this in order to validate WSUS (and similar products) in an environment with real users.  Another group at Microsoft audits my compliance, and often request a list of non-compliant machines for specific security bulletins.  I have adapted Marc’s SQL script to do just that.
 
 I ran into one issue, Marc’s SQL script will blocks clients from scanning while it runs.  Since the script can take a long time to execute on larger data sets, I decided to allow SQL to read dirty data and unblock my clients (`SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED`.).
 
@@ -66,7 +66,7 @@ WHERE     (ctg.Name = @TargetGroup)
                                                    PUBLIC_VIEWS.vUpdateInstallationInfoBasic uiib ON
                                                    uiib.ComputerTargetId = ct.ComputerTargetId AND
                                                    ua.UpdateId = uiib.UpdateId
-                                                   inner join PUBLIC_VIEWS.vUpdate as u on ua.updateid=u.updateId 
+                                                   inner join PUBLIC_VIEWS.vUpdate as u on ua.updateid=u.updateId
                             WHERE      (ueapc.ComputerTargetId = ct.ComputerTargetId) AND
                                                    (ua.Action = 'Install') AND (uiib.State IN (2, 3, 5, 6)) AND u.securityBulletin is not null and u.securityBulletin=@Bulletin )
 ```
