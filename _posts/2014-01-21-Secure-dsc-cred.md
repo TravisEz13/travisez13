@@ -34,7 +34,7 @@ In order to encrypt credentials in a DSC configuration, you must follow a proces
 
 When dealing with encryption of DSC configuration, you must understand DSC configuration data. This structure describes, to a configuration, the list of nodes to be operated on, if credentials in a configuration should be encrypted or not for each node, how credential will be encrypted, and other information you want to include.  Below is an example of configuration data for a machine named `targetNode`, which I’d like to encrypt using a public key I’ve exported and saved to `C:\publicKeys\targetNode.cer`.
 
-```PowerShell
+```powershell
 $ConfigData=    @{
         AllNodes = @(
                         @{
@@ -59,7 +59,7 @@ $ConfigData=    @{
 
 After we have the configuration data, we can start building our configuration.  Since credential are important to keep secure, you should always take the credential as a parameter to your configuration.  This is so the credentials are stored for the shortest time possible.  Below I’ll give an example of copying a file from a share that is secured to a user.
 
-```PowerShell
+```powershell
 configuration CredentialEncryptionExample
 {
     param(
@@ -87,7 +87,7 @@ When you run CredentialEncryptionExample, DSC will prompt your for the credentia
 
 There is still one issue.  When you run [`Start-DscConfiguration`](http://technet.microsoft.com/en-us/library/dn521623.aspx), the Local Configuration Manager (LCM) of target node does not know which certificate to use to decrypt the credentials.  We need to add a LocalConfigurationManager resource to tell it.  You must set the CertificateId to the thumbprint of the certificate.  The first question becomes how to get the thumbprint.  Below is an example of how to find a local certificate that would work for encryption (you may need to customize this to find the exact certificate you want to use.)
 
-```PowerShell
+```powershell
 # Get the certificate that works for encryption
 function Get-LocalEncryptionCertificateThumbprint
 {
@@ -103,7 +103,7 @@ function Get-LocalEncryptionCertificateThumbprint
 
 After we have the thumbprint, we use this to build the configuration data (given in the above configuration data example.)  Below is an example of the updated configuration with the LocalConfigurationManager resource, getting the value from the node in the configuration data.
 
-```PowerShell
+```powershell
 configuration CredentialEncryptionExample
 {
     param(
@@ -133,7 +133,7 @@ configuration CredentialEncryptionExample
 
 From this point, we need to run the configuration, it will output one `*.meta.mof` to configure LCM to decrypt the credentials using the certificate installed to the local machine store identified by the thumbprint, and one mof to apply the configuration.  First, you will need to use [`Set-DscLocalConfigurationManager`](http://technet.microsoft.com/en-us/library/dn521621.aspx) to apply the `*.meta.mof` and then, `Start-DscConfiguration` to apply the configuration.  Here is an example of how you would run this:
 
-``` powershell
+```powershell
 Write-Host “Generate DSC Configuration…”
 CredentialEncryptionExample -ConfigurationData $ConfigData -OutputPath .\CredentialEncryptionExample
 
