@@ -172,51 +172,51 @@ For this article I’m going to assume:</p>
 
 <p>When dealing with encryption of DSC configuration, you must understand DSC configuration data. This structure describes, to a configuration, the list of nodes to be operated on, if credentials in a configuration should be encrypted or not for each node, how credential will be encrypted, and other information you want to include.  Below is an example of configuration data for a machine named <code class="highlighter-rouge">targetNode</code>, which I’d like to encrypt using a public key I’ve exported and saved to <code class="highlighter-rouge">C:\publicKeys\targetNode.cer</code>.</p>
 
-<pre><code class="language-PowerShell">$ConfigData=    @{
-        AllNodes = @(
-                        @{
-                            # The name of the node we are describing
-                            NodeName = “targetNode”
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ConfigData</span><span class="o">=</span><span class="w">    </span><span class="p">@{</span><span class="w">
+        </span><span class="nx">AllNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">@(</span><span class="w">
+                        </span><span class="err">@{</span><span class="w">
+                            </span><span class="err">#</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="nx">we</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">describing</span><span class="w">
+                            </span><span class="nx">NodeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">“</span><span class="nx">targetNode</span><span class="err">”</span><span class="w">
 
-                            # The path to the .cer file containing the
-                            # public key of the Encryption Certificate
-                            # used to encrypt credentials for this node
-                            CertificateFile = “C:\publicKeys\targetNode.cer”
+                            </span><span class="err">#</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="err">.</span><span class="nx">cer</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="nx">containing</span><span class="w"> </span><span class="nx">the</span><span class="w">
+                            </span><span class="err">#</span><span class="w"> </span><span class="nx">public</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Encryption</span><span class="w"> </span><span class="nx">Certificate</span><span class="w">
+                            </span><span class="err">#</span><span class="w"> </span><span class="nx">used</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">encrypt</span><span class="w"> </span><span class="nx">credentials</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">node</span><span class="w">
+                            </span><span class="nx">CertificateFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">“</span><span class="nx">C</span><span class="err">:\</span><span class="nx">publicKeys</span><span class="err">\</span><span class="nx">targetNode</span><span class="err">.</span><span class="nx">cer</span><span class="err">”</span><span class="w">
 
 
-                            # The thumbprint of the Encryption Certificate
-                            # used to decrypt the credentials on target node
-                            Thumbprint = “AC23EA3A9E291A75757A556D0B71CBBF8C4F6FD8″
-                        };
-                    );
-    }
-</code></pre>
+                            </span><span class="err">#</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">thumbprint</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Encryption</span><span class="w"> </span><span class="nx">Certificate</span><span class="w">
+                            </span><span class="err">#</span><span class="w"> </span><span class="nx">used</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">decrypt</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">credentials</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="nx">node</span><span class="w">
+                            </span><span class="nx">Thumbprint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">“</span><span class="nx">AC23EA3A9E291A75757A556D0B71CBBF8C4F6FD8</span><span class="err">″</span><span class="w">
+                        </span><span class="p">};</span><span class="w">
+                    </span><span class="p">);</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
 
 <h2 id="configuration-script">
 <a class="anchor" href="#configuration-script" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration Script</h2>
 
 <p>After we have the configuration data, we can start building our configuration.  Since credential are important to keep secure, you should always take the credential as a parameter to your configuration.  This is so the credentials are stored for the shortest time possible.  Below I’ll give an example of copying a file from a share that is secured to a user.</p>
 
-<pre><code class="language-PowerShell">configuration CredentialEncryptionExample
-{
-    param(
-        [Parameter(Mandatory=$true)]
-        [ValidateNotNullorEmpty()]
-        [PsCredential] $credential
-        )
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">configuration</span><span class="w"> </span><span class="nf">CredentialEncryptionExample</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="kr">param</span><span class="p">(</span><span class="w">
+        </span><span class="p">[</span><span class="kt">Parameter</span><span class="p">(</span><span class="kt">Mandatory</span><span class="o">=</span><span class="bp">$true</span><span class="p">)]</span><span class="w">
+        </span><span class="p">[</span><span class="kt">ValidateNotNullorEmpty</span><span class="p">()]</span><span class="w">
+        </span><span class="p">[</span><span class="kt">PsCredential</span><span class="p">]</span><span class="w"> </span><span class="nv">$credential</span><span class="w">
+        </span><span class="p">)</span><span class="w">
 
 
-    Node $AllNodes.NodeName
-    {
-        File exampleFile
-        {
-            SourcePath = “\\Server\share\path\file.ext”
-            DestinationPath = “C:\destinationPath”
-            Credential = $credential
-        }
-    }
-}
-</code></pre>
+    </span><span class="nf">Node</span><span class="w"> </span><span class="nv">$AllNodes</span><span class="o">.</span><span class="nf">NodeName</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nf">File</span><span class="w"> </span><span class="nx">exampleFile</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nf">SourcePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">“</span><span class="nf">\\Server\share\path\file.ext</span><span class="err">”</span><span class="w">
+            </span><span class="nf">DestinationPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">“</span><span class="nf">C:\destinationPath</span><span class="err">”</span><span class="w">
+            </span><span class="nf">Credential</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$credential</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
 
 <p>When you run CredentialEncryptionExample, DSC will prompt your for the credential and encrypt the mof using the CertificateFile associated with the node in the configuration data.</p>
 
@@ -225,45 +225,45 @@ For this article I’m going to assume:</p>
 
 <p>There is still one issue.  When you run <a href="http://technet.microsoft.com/en-us/library/dn521623.aspx"><code class="highlighter-rouge">Start-DscConfiguration</code></a>, the Local Configuration Manager (LCM) of target node does not know which certificate to use to decrypt the credentials.  We need to add a LocalConfigurationManager resource to tell it.  You must set the CertificateId to the thumbprint of the certificate.  The first question becomes how to get the thumbprint.  Below is an example of how to find a local certificate that would work for encryption (you may need to customize this to find the exact certificate you want to use.)</p>
 
-<pre><code class="language-PowerShell"># Get the certificate that works for encryption
-function Get-LocalEncryptionCertificateThumbprint
-{
-    (dir Cert:\LocalMachine\my) | %{
-                        # Verify the certificate is for Encryption and valid
-                        if ($_.PrivateKey.KeyExchangeAlgorithm -and $_.Verify())
-                        {
-                            return $_.Thumbprint
-                        }
-                    }
-}
-</code></pre>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get the certificate that works for encryption</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Get-LocalEncryptionCertificateThumbprint</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="p">(</span><span class="nf">dir</span><span class="w"> </span><span class="nx">Cert:\LocalMachine\my</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="p">{</span><span class="w">
+                        </span><span class="c"># Verify the certificate is for Encryption and valid</span><span class="w">
+                        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">PrivateKey</span><span class="o">.</span><span class="nf">KeyExchangeAlgorithm</span><span class="w"> </span><span class="o">-and</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Verify</span><span class="p">())</span><span class="w">
+                        </span><span class="p">{</span><span class="w">
+                            </span><span class="kr">return</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Thumbprint</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
 
 <p>After we have the thumbprint, we use this to build the configuration data (given in the above configuration data example.)  Below is an example of the updated configuration with the LocalConfigurationManager resource, getting the value from the node in the configuration data.</p>
 
-<pre><code class="language-PowerShell">configuration CredentialEncryptionExample
-{
-    param(
-        [Parameter(Mandatory=$true)]
-        [ValidateNotNullorEmpty()]
-        [PsCredential] $credential
-        )
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">configuration</span><span class="w"> </span><span class="nf">CredentialEncryptionExample</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="kr">param</span><span class="p">(</span><span class="w">
+        </span><span class="p">[</span><span class="kt">Parameter</span><span class="p">(</span><span class="kt">Mandatory</span><span class="o">=</span><span class="bp">$true</span><span class="p">)]</span><span class="w">
+        </span><span class="p">[</span><span class="kt">ValidateNotNullorEmpty</span><span class="p">()]</span><span class="w">
+        </span><span class="p">[</span><span class="kt">PsCredential</span><span class="p">]</span><span class="w"> </span><span class="nv">$credential</span><span class="w">
+        </span><span class="p">)</span><span class="w">
 
-    Node $AllNodes.NodeName
-    {
-        File exampleFile
-        {
-            SourcePath = “\\Server\share\path\file.ext”
-            DestinationPath = “C:\destinationPath”
-            Credential = $credential
-        }
+    </span><span class="nf">Node</span><span class="w"> </span><span class="nv">$AllNodes</span><span class="o">.</span><span class="nf">NodeName</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nf">File</span><span class="w"> </span><span class="nx">exampleFile</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nf">SourcePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">“</span><span class="nf">\\Server\share\path\file.ext</span><span class="err">”</span><span class="w">
+            </span><span class="nf">DestinationPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">“</span><span class="nf">C:\destinationPath</span><span class="err">”</span><span class="w">
+            </span><span class="nf">Credential</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$credential</span><span class="w">
+        </span><span class="p">}</span><span class="w">
 
-        LocalConfigurationManager
-        {
-             CertificateId = $node.Thumbprint
-        }
-    }
-}
-</code></pre>
+        </span><span class="nf">LocalConfigurationManager</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+             </span><span class="nf">CertificateId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$node</span><span class="o">.</span><span class="nf">Thumbprint</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
 
 <h2 id="running-the-configuration">
 <a class="anchor" href="#running-the-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running the Configuration</h2>
@@ -318,7 +318,7 @@ function Get-LocalEncryptionCertificateThumbprint
       </div>
     </div>
 
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/TravisEz13" title="TravisEz13"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/TravisPlunk" title="TravisPlunk"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/TravisEz13" title="TravisEz13"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/2658816" title="2658816"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li><li><a rel="me" href="https://twitter.com/TravisPlunk" title="TravisPlunk"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li><li><a rel="me" href="https://t.me/TravisEz13" title="TravisEz13"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#telegram"></use></svg></a></li></ul>
 </div>
 
   </div>
