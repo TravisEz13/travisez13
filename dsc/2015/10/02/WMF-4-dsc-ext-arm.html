@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM) | TravisEz13</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
+<meta property="og:description" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
+<link rel="canonical" href="http://fastpages.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html" />
+<meta property="og:url" content="http://fastpages.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html" />
+<meta property="og:site_name" content="TravisEz13" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-10-02T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","@type":"BlogPosting","headline":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","dateModified":"2015-10-02T00:00:00-05:00","datePublished":"2015-10-02T00:00:00-05:00","url":"http://fastpages.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://fastpages.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://fastpages.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM) | TravisEz13</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
+<meta property="og:description" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
+<link rel="canonical" href="http://fastpages.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html" />
+<meta property="og:url" content="http://fastpages.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html" />
+<meta property="og:site_name" content="TravisEz13" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-10-02T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","@type":"BlogPosting","headline":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","dateModified":"2015-10-02T00:00:00-05:00","datePublished":"2015-10-02T00:00:00-05:00","url":"http://fastpages.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://fastpages.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="http://fastpages.ez13.net/feed.xml" title="TravisEz13" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+<script type="text/javascript">
+require.config({
+  paths: {
+    jquery: 'https://code.jquery.com/jquery-3.5.0.min',
+    plotly: 'https://cdn.plot.ly/plotly-latest.min'
+  },
+
+  shim: {
+    plotly: {
+      deps: ['jquery'],
+      exports: 'plotly'
+    }
+  }
+});
+</script>
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">TravisEz13</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)</h1><p class="page-description">How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2015-10-02T00:00:00-05:00" itemprop="datePublished">
+        Oct 2, 2015
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#DSC">DSC</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#overview">Overview</a></li>
+<li class="toc-entry toc-h2"><a href="#setup-azure-sdk-for-net">Setup Azure SDK for .NET</a></li>
+<li class="toc-entry toc-h2"><a href="#create-a-arm-project">Create a ARM Project</a></li>
+<li class="toc-entry toc-h2"><a href="#add-powershell-dsc-extension">Add Powershell DSC Extension</a></li>
+<li class="toc-entry toc-h2"><a href="#using-the-new-wmf-version-feature">Using the new WMF Version feature</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#updating-the-extension-version">Updating the Extension version</a></li>
+<li class="toc-entry toc-h3"><a href="#adding-the-property-to-configure-the-wmf-version">Adding the property to configure the WMF Version</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#deploying-your-configuration">Deploying your configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#summary">Summary</a></li>
+<li class="toc-entry toc-h2"><a href="#notes">Notes</a></li>
+<li class="toc-entry toc-h2"><a href="#references">References</a></li>
+</ul><p>Originally posted on <a href="https://blogs.msdn.microsoft.com/powershell/2015/10/02/how-to-use-wmf-4-with-azure-dsc-extension-in-azure-resource-manager-arm/">MSDN</a>.</p>
+
+<h2 id="overview">
+<a class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>In version 2.7 of the Azure DSC Extension, we added support to leave your Virtual Machine on the latest supported version of WMF 4.0.  This blog will show you how to use this feature in Azure Resource Manager (ARM) templates.  For this, I will use the Azure Resource Manger Tools, that were released with Azure SDK 2.6 for .NET.  I will assume you already have Visual Studio 2015 setup.  I also assume you have read <a href="http://blogs.msdn.com/b/powershell/archive/2015/10/01/how-to-use-wmf-4-with-azure-dsc-extension-in-azure-cloud-service-manager-asm.aspx">‘How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)’</a>, as it describes the meaning of some of the terms.   The MSDN topic <a href="https://msdn.microsoft.com/en-us/library/azure/dn872471.aspx">‘Creating and Deploying Azure Resource Group Deployment Projects’</a> has a general walk-though of using the tools I will use in this blog.  I would suggest you read though and refer back to this page if you loose you way while</p>
+
+<p>In this Example I will show you:</p>
+
+<ol>
+  <li>How to setup the SDK for .NET, which will add the tools to Visual Studio 2015 to design and deploy an ARM Template.</li>
+  <li>How to create an ARM project in Visual Studio</li>
+  <li>How to add DSC to the ARM template</li>
+  <li>How to send this JSON to the extension on an existing VM.</li>
+</ol>
+
+<h2 id="setup-azure-sdk-for-net">
+<a class="anchor" href="#setup-azure-sdk-for-net" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup Azure SDK for .NET</h2>
+
+<p>If you haven’t already, download and install the latest Azure SDK for .NET.  At the time I wrote this, the current download link for the Azure SDK for .NET was <a href="http://go.microsoft.com/fwlink/?linkid=518003&amp;clcid=0x409">here</a>.  The current links to download the SDK can be found <a href="https://azure.microsoft.com/en-us/downloads/">here</a>.</p>
+
+<h2 id="create-a-arm-project">
+<a class="anchor" href="#create-a-arm-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a ARM Project</h2>
+
+<p>See the MSDN topic <a href="https://msdn.microsoft.com/en-us/library/azure/dn872471.aspx">‘Creating and Deploying Azure Resource Group Deployment Projects’</a> on how to ‘Create Azure Resource Group projects’.</p>
+
+<h2 id="add-powershell-dsc-extension">
+<a class="anchor" href="#add-powershell-dsc-extension" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add Powershell DSC Extension</h2>
+
+<p>Once you have created you project, you need to add the ‘Powershell DSC Extension’ to the ARM Template.</p>
+
+<ol>
+  <li>In <strong>Solution Explorer</strong>, expand <strong>templates</strong>
+</li>
+  <li>Click <strong>WindowsVirtualMachine.json</strong>
+</li>
+  <li>Open the <strong>JSON Outline</strong> (this is usually on the left hand pane)</li>
+  <li>In the <strong>JSON Outline</strong>, expand <strong>resources</strong>
+</li>
+  <li>In the <strong>JSON Outline</strong>, right click <strong>Virtual Machine</strong>
+</li>
+  <li>In the context menu, click <strong>Add New Resource</strong>
+</li>
+  <li>In the <strong>Add Resource Window</strong>, click <strong>Powershell DSC Extension</strong>
+</li>
+  <li>In the <strong>Add Resource Window</strong>, in the <strong>Name</strong> field, type <code class="highlighter-rouge">Microsoft.Powershell.DSC</code> (Note, this is important for the SDK to work properly.)</li>
+  <li>In the <strong>Add Resource Window</strong>, click Add</li>
+</ol>
+
+<p>This should add a section of JSON which looks like this:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Powershell.DSC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"extensions"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[variables('location')]"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-01-preview"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dependsOn"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Powershell.DSC"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"publisher"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Powershell"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DSC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"typeHandlerVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"autoUpgradeMinorVersion"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"modulesUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[concat(parameters('_artifactsLocation'), '/', 'dsc.zip')]"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"sasToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[parameters('_artifactsLocationSasToken')]"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"configurationFunction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[variables('Microsoft.Powershell.DSCConfigurationFunction')]"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"nodeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[variables('vmName')]"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"protectedSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="using-the-new-wmf-version-feature">
+<a class="anchor" href="#using-the-new-wmf-version-feature" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using the new WMF Version feature</h2>
+
+<h3 id="updating-the-extension-version">
+<a class="anchor" href="#updating-the-extension-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Updating the Extension version</h3>
+
+<p>You must make sure you use at least the 2.7 version of the extension.  In the DSC Extension JSON update <code class="highlighter-rouge">"typeHandlerVersion": "2.1"</code> to <code class="highlighter-rouge">"typeHandlerVersion": "2.7"</code>.  This will update the DSC Extension version ARM installs from 2.1 to 2.7.</p>
+
+<h3 id="adding-the-property-to-configure-the-wmf-version">
+<a class="anchor" href="#adding-the-property-to-configure-the-wmf-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding the property to configure the WMF Version</h3>
+
+<p>You must tell the DSC Extension what version of the WMF you want to use.  If you don’t it will use the latest.  In the settings section add a wmfVersion property with the value 4.0.  Here is an example <code class="highlighter-rouge">"wmfVersion": "[parameters('wmfVersion')]"</code>.</p>
+
+<p>After this the JSON should look like this:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Powershell.DSC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"extensions"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[variables('location')]"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-01-preview"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dependsOn"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Powershell.DSC"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"publisher"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Powershell"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DSC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"typeHandlerVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"autoUpgradeMinorVersion"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"modulesUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[concat(parameters('_artifactsLocation'), '/', 'dsc.zip')]"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"sasToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[parameters('_artifactsLocationSasToken')]"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"configurationFunction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[variables('Microsoft.Powershell.DSCConfigurationFunction')]"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"wmfVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"nodeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[variables('vmName')]"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"protectedSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="deploying-your-configuration">
+<a class="anchor" href="#deploying-your-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deploying your configuration</h2>
+
+<p>The solution should include a <code class="highlighter-rouge">Microsoft.Powershell.DSCConfiguration.ps1</code> which it will deploy using the DSC Extension.</p>
+
+<p>See the MSDN topic <a href="https://msdn.microsoft.com/en-us/library/azure/dn872471.aspx">‘Creating and Deploying Azure Resource Group Deployment Projects’</a> on ‘Deploying an Azure Resource Group project to an Azure resource group’.</p>
+
+<p>For a more detailed description of how to deploy see the blog <a href="http://blogs.technet.com/b/georgewallace/archive/2015/05/10/deploying-a-website-with-content-through-visual-studio-with-resource-groups.aspx">“Deploying a Website with Content through Visual Studio with Resource Groups”</a></p>
+
+<h2 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+
+<p>This should be enough to let you choose which version of WMF you want to use with ARM.  I’ve put the solution I built on <a href="https://github.com/PowerShell/PowerShell-Blog-Samples/tree/master/2019-09-30-DSC-Extension-v2.7/ARM">GitHub</a> and turned the WmfVersion into a parameter on the template.  This will let you choose what version you want at deployment time.  I also modified the default DSC configuration to report the WMF major Version so it’s easy to verify it is working without logging into the machine.</p>
+
+<h2 id="notes">
+<a class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h2>
+
+<p>Windows Server 2016 Technical Preview has the equivalent of WMF 5 already installed.  Therefore, specifying WMF 4 for this OS is not a valid option.</p>
+
+<h2 id="references">
+<a class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
+
+<p>If you want to dive in further on ARM concepts, Greg Oliver has written the blog <a href="http://blogs.msdn.com/b/golive/archive/2015/09/01/developing-dsc-scripts-for-the-azure-resource-manager-dsc-extension.aspx">“Developing DSC scripts for the Azure Resource Manager DSC Extension”.</a></p>
+
+  </div><a class="u-url" href="/dsc/2015/10/02/WMF-4-dsc-ext-arm.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Travis&#39; Blog</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/TravisEz13" title="TravisEz13"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/2658816" title="2658816"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li><li><a rel="me" href="https://twitter.com/TravisPlunk" title="TravisPlunk"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li><li><a rel="me" href="https://t.me/TravisEz13" title="TravisEz13"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#telegram"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
