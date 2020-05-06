@@ -41,6 +41,10 @@ minima:
   social_links:
     twitter: TravisPlunk
     github: TravisEz13
+    stackoverflow: "2658816"
+    telegram: TravisEz13
+#    linkedin: jekyll
+
 
 # Set this to true to get LaTeX math equation support
 use_math:
