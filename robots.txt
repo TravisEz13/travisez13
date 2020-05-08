@@ -1,1 +1,1 @@
-Sitemap: http://fastpages.ez13.net/sitemap.xml
+Sitemap: https://travis.ez13.net/sitemap.xml
