@@ -32,23 +32,6 @@
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-<script type="text/javascript">
-require.config({
-  paths: {
-    jquery: 'https://code.jquery.com/jquery-3.5.0.min',
-    plotly: 'https://cdn.plot.ly/plotly-latest.min'
-  },
-
-  shim: {
-    plotly: {
-      deps: ['jquery'],
-      exports: 'plotly'
-    }
-  }
-});
-</script>
-
 <script>
 function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
@@ -105,6 +88,16 @@ window.onload = wrap_img;
   
   
 
+  <!-- Sort posts by rank, then date -->
+  
+  
+  
+
+ 
+  
+
+   <!-- Assemble final sorted posts array -->
+  
   <ul class="post-list"><li><h3>
     <a class="post-link" href="/2020/05/06/sierpinski.html">
     Using DotNet-Interactive to render a scatter graph
