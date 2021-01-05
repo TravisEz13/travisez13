@@ -2,7 +2,6 @@ name: Upgrade fastpages
 on: 
   issues:
     types: [opened]
-    
 
 jobs:
   check_credentials:
@@ -49,8 +48,6 @@ jobs:
         permission_level: ${{ github.event.issue.author_association }}
           
   upgrade:
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true 
     needs: [check_credentials]
     if: |
       (github.repository != 'fastai/fastpages') &&
@@ -106,7 +103,6 @@ jobs:
         rm *.md CNAME action.yml _config.yml index.html LICENSE
         rm _pages/*.md
         rm .github/workflows/chatops.yaml
-        rm .github/workflows/docker-nbdev.yaml
         rm .github/workflows/docker.yaml
         rm .github/ISSUE_TEMPLATE/bug.md .github/ISSUE_TEMPLATE/feature_request.md
         
@@ -174,7 +170,7 @@ jobs:
         upgrade_pr_path.write_text(upgrade_pr)
       shell: python
 
-    - uses: webfactory/ssh-agent@v0.2.0
+    - uses: webfactory/ssh-agent@v0.4.1
       if: steps.check_version.outputs.vbump == 'true'
       with:
           ssh-private-key: ${{ secrets.SSH_DEPLOY_KEY }}
