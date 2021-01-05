@@ -2,6 +2,7 @@ name: Upgrade fastpages
 on: 
   issues:
     types: [opened]
+    
 
 jobs:
   check_credentials:
@@ -48,6 +49,8 @@ jobs:
         permission_level: ${{ github.event.issue.author_association }}
           
   upgrade:
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true 
     needs: [check_credentials]
     if: |
       (github.repository != 'fastai/fastpages') &&
