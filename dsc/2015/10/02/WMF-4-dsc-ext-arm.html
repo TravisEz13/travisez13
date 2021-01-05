@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM) | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
@@ -16,26 +16,10 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2015-10-02T00:00:00-05:00" />
 <script type="application/ld+json">
-{"dateModified":"2015-10-02T00:00:00-05:00","description":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html","headline":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","datePublished":"2015-10-02T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"description":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","url":"https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html"},"headline":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","dateModified":"2015-10-02T00:00:00-05:00","datePublished":"2015-10-02T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM) | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
-<meta property="og:description" content="How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)" />
-<link rel="canonical" href="https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html" />
-<meta property="og:url" content="https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html" />
-<meta property="og:site_name" content="TravisEz13" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2015-10-02T00:00:00-05:00" />
-<script type="application/ld+json">
-{"dateModified":"2015-10-02T00:00:00-05:00","description":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html","headline":"How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)","datePublished":"2015-10-02T00:00:00-05:00","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
 <script>
 function wrap_img(fn) {
@@ -169,7 +153,7 @@ window.onload = wrap_img;
 </li>
   <li>In the <strong>Add Resource Window</strong>, click <strong>Powershell DSC Extension</strong>
 </li>
-  <li>In the <strong>Add Resource Window</strong>, in the <strong>Name</strong> field, type <code class="highlighter-rouge">Microsoft.Powershell.DSC</code> (Note, this is important for the SDK to work properly.)</li>
+  <li>In the <strong>Add Resource Window</strong>, in the <strong>Name</strong> field, type <code class="language-plaintext highlighter-rouge">Microsoft.Powershell.DSC</code> (Note, this is important for the SDK to work properly.)</li>
   <li>In the <strong>Add Resource Window</strong>, click Add</li>
 </ol>
 
@@ -210,12 +194,12 @@ window.onload = wrap_img;
 <h3 id="updating-the-extension-version">
 <a class="anchor" href="#updating-the-extension-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Updating the Extension version</h3>
 
-<p>You must make sure you use at least the 2.7 version of the extension.  In the DSC Extension JSON update <code class="highlighter-rouge">"typeHandlerVersion": "2.1"</code> to <code class="highlighter-rouge">"typeHandlerVersion": "2.7"</code>.  This will update the DSC Extension version ARM installs from 2.1 to 2.7.</p>
+<p>You must make sure you use at least the 2.7 version of the extension.  In the DSC Extension JSON update <code class="language-plaintext highlighter-rouge">"typeHandlerVersion": "2.1"</code> to <code class="language-plaintext highlighter-rouge">"typeHandlerVersion": "2.7"</code>.  This will update the DSC Extension version ARM installs from 2.1 to 2.7.</p>
 
 <h3 id="adding-the-property-to-configure-the-wmf-version">
 <a class="anchor" href="#adding-the-property-to-configure-the-wmf-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding the property to configure the WMF Version</h3>
 
-<p>You must tell the DSC Extension what version of the WMF you want to use.  If you don’t it will use the latest.  In the settings section add a wmfVersion property with the value 4.0.  Here is an example <code class="highlighter-rouge">"wmfVersion": "[parameters('wmfVersion')]"</code>.</p>
+<p>You must tell the DSC Extension what version of the WMF you want to use.  If you don’t it will use the latest.  In the settings section add a wmfVersion property with the value 4.0.  Here is an example <code class="language-plaintext highlighter-rouge">"wmfVersion": "[parameters('wmfVersion')]"</code>.</p>
 
 <p>After this the JSON should look like this:</p>
 
@@ -252,7 +236,7 @@ window.onload = wrap_img;
 <h2 id="deploying-your-configuration">
 <a class="anchor" href="#deploying-your-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deploying your configuration</h2>
 
-<p>The solution should include a <code class="highlighter-rouge">Microsoft.Powershell.DSCConfiguration.ps1</code> which it will deploy using the DSC Extension.</p>
+<p>The solution should include a <code class="language-plaintext highlighter-rouge">Microsoft.Powershell.DSCConfiguration.ps1</code> which it will deploy using the DSC Extension.</p>
 
 <p>See the MSDN topic <a href="https://msdn.microsoft.com/en-us/library/azure/dn872471.aspx">‘Creating and Deploying Azure Resource Group Deployment Projects’</a> on ‘Deploying an Azure Resource Group project to an Azure resource group’.</p>
 

@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM) | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)" />
@@ -16,26 +16,10 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2015-10-01T00:00:00-05:00" />
 <script type="application/ld+json">
-{"dateModified":"2015-10-01T00:00:00-05:00","description":"How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html","headline":"How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)","datePublished":"2015-10-01T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"description":"How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)","url":"https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html"},"headline":"How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)","dateModified":"2015-10-01T00:00:00-05:00","datePublished":"2015-10-01T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM) | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)" />
-<meta property="og:description" content="How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)" />
-<link rel="canonical" href="https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html" />
-<meta property="og:url" content="https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html" />
-<meta property="og:site_name" content="TravisEz13" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2015-10-01T00:00:00-05:00" />
-<script type="application/ld+json">
-{"dateModified":"2015-10-01T00:00:00-05:00","description":"How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html","headline":"How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)","datePublished":"2015-10-01T00:00:00-05:00","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
 <script>
 function wrap_img(fn) {
@@ -133,7 +117,7 @@ window.onload = wrap_img;
 <h2 id="creating-the-json">
 <a class="anchor" href="#creating-the-json" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating the JSON</h2>
 
-<p>To do this, use the <code class="highlighter-rouge">Set-AzureVMExtension</code> Cmdlet rather than the <code class="highlighter-rouge">Set-AzureVMDscExtension</code> Cmdlet and pass the JSON using the <code class="highlighter-rouge">-PublicConfiguration</code> parameter.  The following function <code class="highlighter-rouge">New-XAzureVmDscExtensionJson</code> will create the JSON needed for this example.</p>
+<p>To do this, use the <code class="language-plaintext highlighter-rouge">Set-AzureVMExtension</code> Cmdlet rather than the <code class="language-plaintext highlighter-rouge">Set-AzureVMDscExtension</code> Cmdlet and pass the JSON using the <code class="language-plaintext highlighter-rouge">-PublicConfiguration</code> parameter.  The following function <code class="language-plaintext highlighter-rouge">New-XAzureVmDscExtensionJson</code> will create the JSON needed for this example.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a Json to send the the DSC VM Extension</span><span class="w">
 </span><span class="kr">function</span><span class="w"> </span><span class="nf">New-XAzureVmDscExtensionJson</span><span class="w">
@@ -187,39 +171,39 @@ window.onload = wrap_img;
 
 <ul>
   <li>
-<code class="highlighter-rouge">modulesUrl</code>
+<code class="language-plaintext highlighter-rouge">modulesUrl</code>
     <ul>
-      <li>Should be a URL to a zip file generated by <code class="highlighter-rouge">Publish-AzureVmDscConfiguration</code>
+      <li>Should be a URL to a zip file generated by <code class="language-plaintext highlighter-rouge">Publish-AzureVmDscConfiguration</code>
 </li>
     </ul>
   </li>
   <li>
-<code class="highlighter-rouge">moduleName</code>
+<code class="language-plaintext highlighter-rouge">moduleName</code>
     <ul>
       <li>The extension will look for this file name inside the zip file for the configuration.</li>
     </ul>
   </li>
   <li>
-<code class="highlighter-rouge">configurationName</code>
+<code class="language-plaintext highlighter-rouge">configurationName</code>
     <ul>
       <li>The extension will look for a Configuration with this function inside the file/module.</li>
     </ul>
   </li>
   <li>
-<code class="highlighter-rouge">WmfVersion</code>
+<code class="language-plaintext highlighter-rouge">WmfVersion</code>
     <ul>
       <li>The version of WMF to upgrade or leave the machine on.  Currently supported values:
         <ul>
           <li>
-<code class="highlighter-rouge">4.0</code> indicating to upgrade to the currently supported version of WMF 4.0 if a newer version isn’t already installed.
-  	*  <code class="highlighter-rouge">5.0PP</code> indicating to upgrade to the WMF 5.0PP.
-  	*  <code class="highlighter-rouge">latest</code> indicating to upgrade to the latest version of WMF.</li>
+<code class="language-plaintext highlighter-rouge">4.0</code> indicating to upgrade to the currently supported version of WMF 4.0 if a newer version isn’t already installed.
+  	*  <code class="language-plaintext highlighter-rouge">5.0PP</code> indicating to upgrade to the WMF 5.0PP.
+  	*  <code class="language-plaintext highlighter-rouge">latest</code> indicating to upgrade to the latest version of WMF.</li>
         </ul>
       </li>
     </ul>
   </li>
   <li>
-<code class="highlighter-rouge">properties</code>
+<code class="language-plaintext highlighter-rouge">properties</code>
     <ul>
       <li>A Hash-table of parameters to be passed to the configuration</li>
     </ul>
@@ -239,7 +223,7 @@ window.onload = wrap_img;
 
 <h2 id="creating-the-modulesurl">
 <a class="anchor" href="#creating-the-modulesurl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating the `ModulesUrl’</h2>
-<p>To generate the JSON, we need the <code class="highlighter-rouge">modulesUrl</code> this is the URL of the published configuration, with any querystring needed to access the URL.  The following function <code class="highlighter-rouge">Get-XAzureDscPublishedModulesUrl</code> will publish the configuration, create a read-only SASToken for 1 hour, and return the full URI to the blob with the SASToken.</p>
+<p>To generate the JSON, we need the <code class="language-plaintext highlighter-rouge">modulesUrl</code> this is the URL of the published configuration, with any querystring needed to access the URL.  The following function <code class="language-plaintext highlighter-rouge">Get-XAzureDscPublishedModulesUrl</code> will publish the configuration, create a read-only SASToken for 1 hour, and return the full URI to the blob with the SASToken.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Publish a DSC configuration, Create a SasToken, and return the full URI with the SASToken</span><span class="w">
 </span><span class="kr">function</span><span class="w"> </span><span class="nf">Get-XAzureDscPublishedModulesUrl</span><span class="w">
@@ -285,8 +269,8 @@ window.onload = wrap_img;
       </span><span class="p">}</span><span class="w">
 
       </span><span class="nv">$storageAccessKey</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-AzureStorageKey</span><span class="w"> </span><span class="err">–</span><span class="nx">StorageAccountName</span><span class="w"> </span><span class="nv">$StorageAccountName</span><span class="p">)</span><span class="o">.</span><span class="nf">Primary</span><span class="w">
-      </span><span class="nv">$storageContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-AzureStorageContext</span><span class="w"> </span><span class="nt">-StorageAccountName</span><span class="w"> </span><span class="nv">$StorageAccountName</span><span class="w"> </span><span class="err">`</span><span class="w">
-            </span><span class="nt">-StorageAccountKey</span><span class="w"> </span><span class="nv">$storageAccessKey</span><span class="w">
+      </span><span class="nv">$storageContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-AzureStorageContext</span><span class="w"> </span><span class="nt">-StorageAccountName</span><span class="w"> </span><span class="nv">$StorageAccountName</span><span class="w"> </span><span class="se">`
+</span><span class="w">            </span><span class="nt">-StorageAccountKey</span><span class="w"> </span><span class="nv">$storageAccessKey</span><span class="w">
 
       </span><span class="kr">return</span><span class="w"> </span><span class="nv">$storageContext</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -294,19 +278,19 @@ window.onload = wrap_img;
   </span><span class="nv">$expiryTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="kt">DateTime</span><span class="p">]::</span><span class="nf">UtcNow.AddMinutes</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w">
 
   </span><span class="c">#Publish the configuration</span><span class="w">
-  </span><span class="nf">Publish-AzureVMDscConfiguration</span><span class="w"> </span><span class="nt">-ConfigurationPath</span><span class="w"> </span><span class="nv">$configurationPath</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="err">`</span><span class="w">
-      </span><span class="nt">-storageContext</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-AzureDscStorageAccountContext</span><span class="w"> </span><span class="nt">-storageAccountName</span><span class="w"> </span><span class="nv">$storageAccountName</span><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="w">
+  </span><span class="nf">Publish-AzureVMDscConfiguration</span><span class="w"> </span><span class="nt">-ConfigurationPath</span><span class="w"> </span><span class="nv">$configurationPath</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="se">`
+</span><span class="w">      </span><span class="nt">-storageContext</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-AzureDscStorageAccountContext</span><span class="w"> </span><span class="nt">-storageAccountName</span><span class="w"> </span><span class="nv">$storageAccountName</span><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="w">
       </span><span class="nt">-ContainerName</span><span class="w"> </span><span class="nv">$StorageContainer</span><span class="w">
 
   </span><span class="c"># Create a SasToken for the Configuration</span><span class="w">
-  </span><span class="kr">return</span><span class="w"> </span><span class="nf">New-AzureStorageBlobSASToken</span><span class="w"> </span><span class="nt">-Container</span><span class="w"> </span><span class="nv">$StorageContainer</span><span class="w"> </span><span class="nt">-Blob</span><span class="w"> </span><span class="nv">$blobName</span><span class="w"> </span><span class="nt">-Permission</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="err">`</span><span class="w">
-      </span><span class="nt">-ExpiryTime</span><span class="w"> </span><span class="nv">$expiryTime</span><span class="w"> </span><span class="nt">-Context</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-AzureDscStorageAccountContext</span><span class="w"> </span><span class="nt">-storageAccountName</span><span class="w"> </span><span class="nv">$storageAccountName</span><span class="p">)</span><span class="w"> </span><span class="nt">-FullUri</span><span class="w">
+  </span><span class="kr">return</span><span class="w"> </span><span class="nf">New-AzureStorageBlobSASToken</span><span class="w"> </span><span class="nt">-Container</span><span class="w"> </span><span class="nv">$StorageContainer</span><span class="w"> </span><span class="nt">-Blob</span><span class="w"> </span><span class="nv">$blobName</span><span class="w"> </span><span class="nt">-Permission</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="se">`
+</span><span class="w">      </span><span class="nt">-ExpiryTime</span><span class="w"> </span><span class="nv">$expiryTime</span><span class="w"> </span><span class="nt">-Context</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-AzureDscStorageAccountContext</span><span class="w"> </span><span class="nt">-storageAccountName</span><span class="w"> </span><span class="nv">$storageAccountName</span><span class="p">)</span><span class="w"> </span><span class="nt">-FullUri</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <h2 id="putting-it-all-together-and-sending-it-to-a-vm">
 <a class="anchor" href="#putting-it-all-together-and-sending-it-to-a-vm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Putting it all together and Sending it to a VM</h2>
-<p>Now we need to call the function to get the <code class="highlighter-rouge">modulesUrl</code>, pass the value to the function to get the JSON along with the rest of the parameters, get our VM object, and call <code class="highlighter-rouge">Set-AzureVMExtension</code> on the VM with the JSON and the parameter to send it the the DSC extension.  The following is an example of how to do that.</p>
+<p>Now we need to call the function to get the <code class="language-plaintext highlighter-rouge">modulesUrl</code>, pass the value to the function to get the JSON along with the rest of the parameters, get our VM object, and call <code class="language-plaintext highlighter-rouge">Set-AzureVMExtension</code> on the VM with the JSON and the parameter to send it the the DSC extension.  The following is an example of how to do that.</p>
 
 <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$storageAccountName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'storageaccountname'</span><span class="w">
 </span><span class="nv">$publisher</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s1">'Microsoft.Powershell'</span><span class="w">
@@ -318,22 +302,22 @@ window.onload = wrap_img;
 </span><span class="nv">$configurationPath</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="bp">$PSScriptRoot</span><span class="s2">\</span><span class="nv">$moduleName</span><span class="s2">"</span><span class="w">
 </span><span class="nv">$ConfigurationName</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'ConfigurationName'</span><span class="w">
 
-</span><span class="nv">$modulesUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-XAzureDscPublishedModulesUrl</span><span class="w"> </span><span class="nt">-blobName</span><span class="w"> </span><span class="nv">$blobName</span><span class="w"> </span><span class="nt">-configurationPath</span><span class="w"> </span><span class="nv">$configurationPath</span><span class="w"> </span><span class="err">`</span><span class="w">
-   </span><span class="nt">-storageAccountName</span><span class="w"> </span><span class="nv">$storageAccountName</span><span class="w">
+</span><span class="nv">$modulesUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-XAzureDscPublishedModulesUrl</span><span class="w"> </span><span class="nt">-blobName</span><span class="w"> </span><span class="nv">$blobName</span><span class="w"> </span><span class="nt">-configurationPath</span><span class="w"> </span><span class="nv">$configurationPath</span><span class="w"> </span><span class="se">`
+</span><span class="w">   </span><span class="nt">-storageAccountName</span><span class="w"> </span><span class="nv">$storageAccountName</span><span class="w">
 </span><span class="nf">Write-Verbose</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"ModulesUrl: </span><span class="nv">$modulesUrl</span><span class="s2">"</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
 
-</span><span class="nv">$PublicConfigurationJson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-XAzureVmDscExtensionJson</span><span class="w"> </span><span class="nt">-moduleName</span><span class="w"> </span><span class="nv">$moduleName</span><span class="w"> </span><span class="nt">-modulesUrl</span><span class="w"> </span><span class="nv">$modulesUrl</span><span class="w"> </span><span class="err">`</span><span class="w">
-    </span><span class="nt">-properties</span><span class="w"> </span><span class="p">@{</span><span class="nx">DestinationPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'C:\test'</span><span class="p">}</span><span class="w"> </span><span class="nt">-configurationName</span><span class="w"> </span><span class="nv">$ConfigurationName</span><span class="w"> </span><span class="nt">-WmfVersion</span><span class="w"> </span><span class="s1">'4.0'</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
+</span><span class="nv">$PublicConfigurationJson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-XAzureVmDscExtensionJson</span><span class="w"> </span><span class="nt">-moduleName</span><span class="w"> </span><span class="nv">$moduleName</span><span class="w"> </span><span class="nt">-modulesUrl</span><span class="w"> </span><span class="nv">$modulesUrl</span><span class="w"> </span><span class="se">`
+</span><span class="w">    </span><span class="nt">-properties</span><span class="w"> </span><span class="p">@{</span><span class="nx">DestinationPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'C:\test'</span><span class="p">}</span><span class="w"> </span><span class="nt">-configurationName</span><span class="w"> </span><span class="nv">$ConfigurationName</span><span class="w"> </span><span class="nt">-WmfVersion</span><span class="w"> </span><span class="s1">'4.0'</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
 </span><span class="nf">Write-Verbose</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"PublicConfigurationJson: </span><span class="nv">$PublicConfigurationJson</span><span class="s2">"</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
 
 </span><span class="nv">$vm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get-azurevm</span><span class="w"> </span><span class="nt">-ServiceName</span><span class="w"> </span><span class="nv">$serviceName</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$vmName</span><span class="w">
-</span><span class="nv">$vm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Set-AzureVMExtension</span><span class="w"> </span><span class="err">`</span><span class="w">
-        </span><span class="nt">-VM</span><span class="w"> </span><span class="nv">$vm</span><span class="w"> </span><span class="err">`</span><span class="w">
-        </span><span class="nt">-Publisher</span><span class="w"> </span><span class="nv">$publisher</span><span class="w"> </span><span class="err">`</span><span class="w">
-        </span><span class="nt">-ExtensionName</span><span class="w"> </span><span class="s1">'DSC'</span><span class="w"> </span><span class="err">`</span><span class="w">
-        </span><span class="nt">-Version</span><span class="w"> </span><span class="nv">$dscVersion</span><span class="w"> </span><span class="err">`</span><span class="w">
-        </span><span class="nt">-PublicConfiguration</span><span class="w"> </span><span class="nv">$PublicConfigurationJson</span><span class="w"> </span><span class="err">`</span><span class="w">
-        </span><span class="nt">-ForceUpdate</span><span class="w">
+</span><span class="nv">$vm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Set-AzureVMExtension</span><span class="w"> </span><span class="se">`
+</span><span class="w">        </span><span class="nt">-VM</span><span class="w"> </span><span class="nv">$vm</span><span class="w"> </span><span class="se">`
+</span><span class="w">        </span><span class="nt">-Publisher</span><span class="w"> </span><span class="nv">$publisher</span><span class="w"> </span><span class="se">`
+</span><span class="w">        </span><span class="nt">-ExtensionName</span><span class="w"> </span><span class="s1">'DSC'</span><span class="w"> </span><span class="se">`
+</span><span class="w">        </span><span class="nt">-Version</span><span class="w"> </span><span class="nv">$dscVersion</span><span class="w"> </span><span class="se">`
+</span><span class="w">        </span><span class="nt">-PublicConfiguration</span><span class="w"> </span><span class="nv">$PublicConfigurationJson</span><span class="w"> </span><span class="se">`
+</span><span class="w">        </span><span class="nt">-ForceUpdate</span><span class="w">
 
 </span><span class="nv">$vm</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Update-AzureVM</span><span class="w">
 

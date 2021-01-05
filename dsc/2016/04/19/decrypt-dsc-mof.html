@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Decrypting the current MOF on WMF5 | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Decrypting the current MOF on WMF5" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Decrypting the current MOF on WMF5" />
@@ -16,26 +16,10 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2016-04-19T00:00:00-05:00" />
 <script type="application/ld+json">
-{"dateModified":"2016-04-19T00:00:00-05:00","description":"Decrypting the current MOF on WMF5","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html","headline":"Decrypting the current MOF on WMF5","datePublished":"2016-04-19T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"description":"Decrypting the current MOF on WMF5","url":"https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html"},"headline":"Decrypting the current MOF on WMF5","dateModified":"2016-04-19T00:00:00-05:00","datePublished":"2016-04-19T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Decrypting the current MOF on WMF5 | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Decrypting the current MOF on WMF5" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Decrypting the current MOF on WMF5" />
-<meta property="og:description" content="Decrypting the current MOF on WMF5" />
-<link rel="canonical" href="https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html" />
-<meta property="og:url" content="https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html" />
-<meta property="og:site_name" content="TravisEz13" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-04-19T00:00:00-05:00" />
-<script type="application/ld+json">
-{"dateModified":"2016-04-19T00:00:00-05:00","description":"Decrypting the current MOF on WMF5","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html","headline":"Decrypting the current MOF on WMF5","datePublished":"2016-04-19T00:00:00-05:00","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
 <script>
 function wrap_img(fn) {
@@ -113,7 +97,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#installation">Installation</a></li>
 <li class="toc-entry toc-h2"><a href="#example-usage">Example Usage</a></li>
 <li class="toc-entry toc-h2"><a href="#example-output">Example output</a></li>
-</ul><p>At the PowerShell Summit in Bellevue, I presented about how DSC now automatically encrypts the <code class="highlighter-rouge">current.mof</code>, in order to address some customer concerns about the existing encryption.  After this talk, I was asked some questions about how to decrypt this new encryption.  When I got back to work, I added a simple function, <code class="highlighter-rouge">Unprotect-xDscConfiguration</code> to the <a href="https://github.com/PowerShell/xDscDiagnostics">xDscDiagnostics</a> module on GitHub.  It takes a parameter for the name of the stage that you would like to decrypt (see the documention for the stage parameter of <a href="http://bit.ly/1NkJm9X">Remove-DSCConfigurationDocument</a>).  The function will currently only work locally (feel free to submit an issue or a PR) and <strong>must be run as administrator</strong> to be able to decrypt the MOF.  Example usage and output are below as well.</p>
+</ul><p>At the PowerShell Summit in Bellevue, I presented about how DSC now automatically encrypts the <code class="language-plaintext highlighter-rouge">current.mof</code>, in order to address some customer concerns about the existing encryption.  After this talk, I was asked some questions about how to decrypt this new encryption.  When I got back to work, I added a simple function, <code class="language-plaintext highlighter-rouge">Unprotect-xDscConfiguration</code> to the <a href="https://github.com/PowerShell/xDscDiagnostics">xDscDiagnostics</a> module on GitHub.  It takes a parameter for the name of the stage that you would like to decrypt (see the documention for the stage parameter of <a href="http://bit.ly/1NkJm9X">Remove-DSCConfigurationDocument</a>).  The function will currently only work locally (feel free to submit an issue or a PR) and <strong>must be run as administrator</strong> to be able to decrypt the MOF.  Example usage and output are below as well.</p>
 
 <h2 id="installation">
 <a class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>

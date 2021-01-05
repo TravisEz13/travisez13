@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>How to map downloads of the extension dependencies to your own location. | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="How to map downloads of the extension dependencies to your own location." />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="How to map downloads of the extension dependencies to your own location." />
@@ -16,26 +16,10 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2015-10-21T00:00:00-05:00" />
 <script type="application/ld+json">
-{"dateModified":"2015-10-21T00:00:00-05:00","description":"How to map downloads of the extension dependencies to your own location.","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html","headline":"How to map downloads of the extension dependencies to your own location.","datePublished":"2015-10-21T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"description":"How to map downloads of the extension dependencies to your own location.","url":"https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html"},"headline":"How to map downloads of the extension dependencies to your own location.","dateModified":"2015-10-21T00:00:00-05:00","datePublished":"2015-10-21T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>How to map downloads of the extension dependencies to your own location. | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="How to map downloads of the extension dependencies to your own location." />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="How to map downloads of the extension dependencies to your own location." />
-<meta property="og:description" content="How to map downloads of the extension dependencies to your own location." />
-<link rel="canonical" href="https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html" />
-<meta property="og:url" content="https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html" />
-<meta property="og:site_name" content="TravisEz13" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2015-10-21T00:00:00-05:00" />
-<script type="application/ld+json">
-{"dateModified":"2015-10-21T00:00:00-05:00","description":"How to map downloads of the extension dependencies to your own location.","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html","headline":"How to map downloads of the extension dependencies to your own location.","datePublished":"2015-10-21T00:00:00-05:00","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
 <script>
 function wrap_img(fn) {
@@ -136,7 +120,7 @@ window.onload = wrap_img;
 <h2 id="adding-the-download-mappings-json">
 <a class="anchor" href="#adding-the-download-mappings-json" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding the Download Mappings JSON</h2>
 
-<p>In the <code class="highlighter-rouge">New-XAzureVmDscExtensionJson</code> from the previous <a href="http://blogs.msdn.com/b/powershell/archive/2015/10/01/how-to-use-wmf-4-with-azure-dsc-extension-in-azure-cloud-service-manager-asm.aspx">ASM blog</a>, add the download mapping parameter with the type of <code class="highlighter-rouge">HashTable</code>.  Additionally, we will update the <code class="highlighter-rouge">wmfVersion</code> parameter to not be required and set the default value to make the function easier to use.</p>
+<p>In the <code class="language-plaintext highlighter-rouge">New-XAzureVmDscExtensionJson</code> from the previous <a href="http://blogs.msdn.com/b/powershell/archive/2015/10/01/how-to-use-wmf-4-with-azure-dsc-extension-in-azure-cloud-service-manager-asm.aspx">ASM blog</a>, add the download mapping parameter with the type of <code class="language-plaintext highlighter-rouge">HashTable</code>.  Additionally, we will update the <code class="language-plaintext highlighter-rouge">wmfVersion</code> parameter to not be required and set the default value to make the function easier to use.</p>
 
 <pre><code class="language-PowerShell">        [ValidateNotNullOrEmpty()]
         [ValidateSet('4.0','latest','5.0PP')]
@@ -153,47 +137,47 @@ window.onload = wrap_img;
 <ul>
   <li>The key of the hash table:
     <ul>
-      <li>Should be the key for the download in the following format: <code class="highlighter-rouge">&lt;PKG&gt;_&lt;PKGVersion&gt;-&lt;Platform&gt;_&lt;PlatformVersion&gt;-&lt;Arch&gt;</code>
+      <li>Should be the key for the download in the following format: <code class="language-plaintext highlighter-rouge">&lt;PKG&gt;_&lt;PKGVersion&gt;-&lt;Platform&gt;_&lt;PlatformVersion&gt;-&lt;Arch&gt;</code>
         <ul>
           <li>
-<code class="highlighter-rouge">PKG</code>
+<code class="language-plaintext highlighter-rouge">PKG</code>
             <ul>
               <li>
-<code class="highlighter-rouge">WMF</code> - for WMF Packages</li>
+<code class="language-plaintext highlighter-rouge">WMF</code> - for WMF Packages</li>
               <li>
-<code class="highlighter-rouge">NET</code> - for .NET packages</li>
+<code class="language-plaintext highlighter-rouge">NET</code> - for .NET packages</li>
             </ul>
           </li>
           <li>
-<code class="highlighter-rouge">PKGVerion</code>
+<code class="language-plaintext highlighter-rouge">PKGVerion</code>
             <ul>
-              <li>The Version of the Package. Currently WMF has two valid versions, <code class="highlighter-rouge">4.0</code> or <code class="highlighter-rouge">5.0PP</code> (<code class="highlighter-rouge">latest</code> translates to <code class="highlighter-rouge">5.0PP</code>.)  .NET only has one valid version currently, <code class="highlighter-rouge">4.5</code>.</li>
+              <li>The Version of the Package. Currently WMF has two valid versions, <code class="language-plaintext highlighter-rouge">4.0</code> or <code class="language-plaintext highlighter-rouge">5.0PP</code> (<code class="language-plaintext highlighter-rouge">latest</code> translates to <code class="language-plaintext highlighter-rouge">5.0PP</code>.)  .NET only has one valid version currently, <code class="language-plaintext highlighter-rouge">4.5</code>.</li>
             </ul>
           </li>
           <li>
-<code class="highlighter-rouge">Platform</code>
+<code class="language-plaintext highlighter-rouge">Platform</code>
             <ul>
               <li>Reserved for future use, currently always `Windows’</li>
             </ul>
           </li>
           <li>`PlatformVersion’
             <ul>
-              <li>Windows Server 2008 R2 - <code class="highlighter-rouge">6.1</code>
+              <li>Windows Server 2008 R2 - <code class="language-plaintext highlighter-rouge">6.1</code>
 </li>
-              <li>Windows Server 2012 - <code class="highlighter-rouge">6.2</code>
+              <li>Windows Server 2012 - <code class="language-plaintext highlighter-rouge">6.2</code>
 </li>
-              <li>Windows Server 2012 R2 - <code class="highlighter-rouge">6.3</code>
+              <li>Windows Server 2012 R2 - <code class="language-plaintext highlighter-rouge">6.3</code>
 </li>
-              <li>Windows Server 2016 Technical Preview - <code class="highlighter-rouge">10.0</code>
+              <li>Windows Server 2016 Technical Preview - <code class="language-plaintext highlighter-rouge">10.0</code>
 </li>
             </ul>
           </li>
           <li>
-<code class="highlighter-rouge">Arch</code>
+<code class="language-plaintext highlighter-rouge">Arch</code>
             <ul>
-              <li>AMD64/x64 - <code class="highlighter-rouge">x64</code>
+              <li>AMD64/x64 - <code class="language-plaintext highlighter-rouge">x64</code>
 </li>
-              <li>x86 - <code class="highlighter-rouge">x86</code>
+              <li>x86 - <code class="language-plaintext highlighter-rouge">x86</code>
 </li>
             </ul>
           </li>
@@ -201,7 +185,7 @@ window.onload = wrap_img;
       </li>
       <li>Example to map the download of WMF 4.0 for Windows Server 2008 R2 X64 to your own URL the key would be:
         <ul>
-          <li><code class="highlighter-rouge">WMF_4.0-Windows_6.1-x64</code></li>
+          <li><code class="language-plaintext highlighter-rouge">WMF_4.0-Windows_6.1-x64</code></li>
         </ul>
       </li>
     </ul>
@@ -222,7 +206,7 @@ window.onload = wrap_img;
     </span><span class="nl">"WmfVersion"</span><span class="p">:</span><span class="w">  </span><span class="s2">"latest"</span><span class="err">,</span><span class="w">
     </span><span class="nl">"ConfigurationFunction"</span><span class="p">:</span><span class="w">  </span><span class="s2">"configuration.ps1</span><span class="se">\\</span><span class="s2">ConfigurationName"</span><span class="err">,</span><span class="w">
     </span><span class="nl">"ModulesUrl"</span><span class="p">:</span><span class="w">  </span><span class="s2">"https://storageaccountname.blob.core.windows.net/windows-powershell-dsc/configuration.ps1.zip?&lt;sastoken&gt;"</span><span class="w">
-</span><span class="err">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <h2 id="putting-it-all-together-and-sending-it-to-a-vm">
@@ -298,7 +282,7 @@ $vm | Update-AzureVM
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<p>To that we will add the following JSON after <code class="highlighter-rouge">modulesUrl</code>.</p>
+<p>To that we will add the following JSON after <code class="language-plaintext highlighter-rouge">modulesUrl</code>.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">    </span><span class="nl">"advancedOptions"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w">
     	</span><span class="nl">"DownloadMappings"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w">

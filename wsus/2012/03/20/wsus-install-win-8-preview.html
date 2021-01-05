@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Installing WSUS on Windows Server “8” Beta using PowerShell | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Installing WSUS on Windows Server “8” Beta using PowerShell" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Installing WSUS on Windows Server “8” Beta using PowerShell" />
@@ -16,26 +16,10 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2012-03-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"dateModified":"2012-03-20T00:00:00-05:00","description":"Installing WSUS on Windows Server “8” Beta using PowerShell","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html","headline":"Installing WSUS on Windows Server “8” Beta using PowerShell","datePublished":"2012-03-20T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"description":"Installing WSUS on Windows Server “8” Beta using PowerShell","url":"https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html"},"headline":"Installing WSUS on Windows Server “8” Beta using PowerShell","dateModified":"2012-03-20T00:00:00-05:00","datePublished":"2012-03-20T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Installing WSUS on Windows Server “8” Beta using PowerShell | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Installing WSUS on Windows Server “8” Beta using PowerShell" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Installing WSUS on Windows Server “8” Beta using PowerShell" />
-<meta property="og:description" content="Installing WSUS on Windows Server “8” Beta using PowerShell" />
-<link rel="canonical" href="https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html" />
-<meta property="og:url" content="https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html" />
-<meta property="og:site_name" content="TravisEz13" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2012-03-20T00:00:00-05:00" />
-<script type="application/ld+json">
-{"dateModified":"2012-03-20T00:00:00-05:00","description":"Installing WSUS on Windows Server “8” Beta using PowerShell","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html","headline":"Installing WSUS on Windows Server “8” Beta using PowerShell","datePublished":"2012-03-20T00:00:00-05:00","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
 <script>
 function wrap_img(fn) {
@@ -144,13 +128,13 @@ follow the steps below:</p>
 <img src="/images/wsus-install.png" alt="8156.image_1FBE9383"></p>
   </li>
   <li>
-    <p>In the PowerShell Console type <code class="highlighter-rouge">Install-WindowsFeature -Name UpdateServices, UpdateServices-Ui</code> and press <strong>ENTER</strong>.</p>
+    <p>In the PowerShell Console type <code class="language-plaintext highlighter-rouge">Install-WindowsFeature -Name UpdateServices, UpdateServices-Ui</code> and press <strong>ENTER</strong>.</p>
   </li>
   <li>
     <p>The installation process will start and a progress counter will appear on the screen. Wait until the installation reaches 100% and you receive a message that the installation succeeded before moving on to the next step.</p>
   </li>
   <li>
-    <p>Type <code class="highlighter-rouge">&amp; 'C:\Program Files\Update Services\Tools\WsusUtil.exe' postinstall contentdir=C:\Mycontent</code> and press <strong>ENTER</strong>.</p>
+    <p>Type <code class="language-plaintext highlighter-rouge">&amp; 'C:\Program Files\Update Services\Tools\WsusUtil.exe' postinstall contentdir=C:\Mycontent</code> and press <strong>ENTER</strong>.</p>
   </li>
   <li>
     <p>Wait until you receive the message that the post installation successfully finished.</p>

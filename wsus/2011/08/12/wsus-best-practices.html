@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="twitter:card" content="summary" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Best Practices for Securing WSUS with SSL | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Best Practices for Securing WSUS with SSL" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Best Practices for Securing WSUS with SSL" />
@@ -16,26 +16,10 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2011-08-12T00:00:00-05:00" />
 <script type="application/ld+json">
-{"dateModified":"2011-08-12T00:00:00-05:00","description":"Best Practices for Securing WSUS with SSL","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html","headline":"Best Practices for Securing WSUS with SSL","datePublished":"2011-08-12T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"description":"Best Practices for Securing WSUS with SSL","url":"https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html"},"headline":"Best Practices for Securing WSUS with SSL","dateModified":"2011-08-12T00:00:00-05:00","datePublished":"2011-08-12T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Best Practices for Securing WSUS with SSL | TravisEz13</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Best Practices for Securing WSUS with SSL" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Best Practices for Securing WSUS with SSL" />
-<meta property="og:description" content="Best Practices for Securing WSUS with SSL" />
-<link rel="canonical" href="https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html" />
-<meta property="og:url" content="https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html" />
-<meta property="og:site_name" content="TravisEz13" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2011-08-12T00:00:00-05:00" />
-<script type="application/ld+json">
-{"dateModified":"2011-08-12T00:00:00-05:00","description":"Best Practices for Securing WSUS with SSL","mainEntityOfPage":{"@type":"WebPage","@id":"https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html"},"@type":"BlogPosting","url":"https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html","headline":"Best Practices for Securing WSUS with SSL","datePublished":"2011-08-12T00:00:00-05:00","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://travis.ez13.net/feed.xml" title="TravisEz13" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
 <script>
 function wrap_img(fn) {
@@ -131,7 +115,7 @@ window.onload = wrap_img;
 <ul>
   <li>“The National Institute of Standards and Technology (NIST) has issued a statement that says SSL certificates with a key length of 1,024 bits or fewer will be insufficient for security after December 31, 2010, because NIST estimates that computers will be powerful enough to perform a brute-force crack of keys of that size.” <a href="http://www.windowsitpro.com/article/security/Are-Your-SSL-Certificates-Secure">BROKEN - Windows IT Pro - Are yur SSL certificates Secure</a>
 </li>
-  <li>The research … has the specific purpose of convincing Certification Authorities to drop <code class="highlighter-rouge">MD5</code> and move on to more secure algorithms, such as <del><code class="highlighter-rouge">SHA-1</code></del>, <code class="highlighter-rouge">SHA-2</code>, or the upcoming <code class="highlighter-rouge">SHA-3</code>. <a href="http://news.softpedia.com/news/SSL-Security-Broken-101075.shtml">SoftPedia - SSL Security Broken</a>
+  <li>The research … has the specific purpose of convincing Certification Authorities to drop <code class="language-plaintext highlighter-rouge">MD5</code> and move on to more secure algorithms, such as <del><code class="language-plaintext highlighter-rouge">SHA-1</code></del>, <code class="language-plaintext highlighter-rouge">SHA-2</code>, or the upcoming <code class="language-plaintext highlighter-rouge">SHA-3</code>. <a href="http://news.softpedia.com/news/SSL-Security-Broken-101075.shtml">SoftPedia - SSL Security Broken</a>
 </li>
 </ul>
 
