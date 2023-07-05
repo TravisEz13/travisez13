@@ -1,0 +1,387 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I’m Travis Plunk. I’m a Senior Software Engineer at Microsoft. I’ve worked at Microsoft for over 19+ years. I’ve worked on Commerce Server, Windows Update, Windows Server Update Service, PowerShell Desired State Configuration and currently working on PowerShell Core.\n\nBlog Posts\n\nWork Disclaimer"
+  },
+  {
+    "objectID": "posts/2011-08-12-wsus-best-practices.html",
+    "href": "posts/2011-08-12-wsus-best-practices.html",
+    "title": "Best Practices for Securing WSUS with SSL",
+    "section": "",
+    "text": "One of the questions that always come up during the planning phase of WSUS is how to secure the communication between WSUS and the clients. The general guidelines for this deployment are documented at Securing WSUS with the Secure Sockets Layer Protocol article and you should always read it first. The goal of this article is to extent this list and highlight additional considerations that you should take while planning this type of deployment."
+  },
+  {
+    "objectID": "posts/2011-08-12-wsus-best-practices.html#introduction",
+    "href": "posts/2011-08-12-wsus-best-practices.html#introduction",
+    "title": "Best Practices for Securing WSUS with SSL",
+    "section": "",
+    "text": "One of the questions that always come up during the planning phase of WSUS is how to secure the communication between WSUS and the clients. The general guidelines for this deployment are documented at Securing WSUS with the Secure Sockets Layer Protocol article and you should always read it first. The goal of this article is to extent this list and highlight additional considerations that you should take while planning this type of deployment."
+  },
+  {
+    "objectID": "posts/2011-08-12-wsus-best-practices.html#additional-considerations-while-deploying-wsus-with-ssl",
+    "href": "posts/2011-08-12-wsus-best-practices.html#additional-considerations-while-deploying-wsus-with-ssl",
+    "title": "Best Practices for Securing WSUS with SSL",
+    "section": "Additional Considerations while Deploying WSUS with SSL",
+    "text": "Additional Considerations while Deploying WSUS with SSL\n\nUse an FQDN wherever you refer to the WSUS server, including the common name used to create the SSL Certificate even on an intranet.\nRequire SSL so that you know your connections are secure.\nUse a certificate chained to already known trusted root, issued from a certificate authority that maintains CRL (in case your certificate becomes compromised).\n\nConsider the Algorithm and Certificate Key length of the certificate you are using:\n\n“The National Institute of Standards and Technology (NIST) has issued a statement that says SSL certificates with a key length of 1,024 bits or fewer will be insufficient for security after December 31, 2010, because NIST estimates that computers will be powerful enough to perform a brute-force crack of keys of that size.” BROKEN - Windows IT Pro - Are yur SSL certificates Secure\nThe research … has the specific purpose of convincing Certification Authorities to drop MD5 and move on to more secure algorithms, such as SHA-1, SHA-2, or the upcoming SHA-3. SoftPedia - SSL Security Broken"
+  },
+  {
+    "objectID": "posts/2008-07-07-Wsus-reporting.html",
+    "href": "posts/2008-07-07-Wsus-reporting.html",
+    "title": "Finding machines not compliant with a specific security bulletin",
+    "section": "",
+    "text": "Finding machines not compliant with a specific security bulletin\nOriginally posted on TechNet.\nI read Marc’s BROKEN - post about Compliance Reporting and it was similar to a problem I deal with in my job. Part of my job is to run Update Management on one of the domains consisting of around 12,000 managed computers at Microsoft using WSUS. We do this in order to validate WSUS (and similar products) in an environment with real users. Another group at Microsoft audits my compliance, and often request a list of non-compliant machines for specific security bulletins. I have adapted Marc’s SQL script to do just that.\nI ran into one issue, Marc’s SQL script will blocks clients from scanning while it runs. Since the script can take a long time to execute on larger data sets, I decided to allow SQL to read dirty data and unblock my clients (SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED.).\nI hope you find this useful.\nTravis Plunk\nSoftware Design Engineer in Test II, WSUS\n-- Find computers within a target group that need a security bulletin\n\nUSE SUSDB\ngo\n\nSET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED\n\nGO\n\nDECLARE @TargetGroup nvarchar(30)\n\n\nDECLARE @Bulletin nvarchar(9)\n\nSELECT @TargetGroup = 'All Computers'\n\n\nSELECT @Bulletin = 'MS08-030'\n\n\n-- Find the computers not compliant for each security bulletin in the given @TargetGroup\n-- where the approved occured between @Days and @DaysEnd days ago\n\n\nSELECT       ct.Name,@Bulletin as Bulletin,ct.LastReportedStatusTime\nFROM         PUBLIC_VIEWS.vComputerGroupMembership as cgm INNER JOIN\n                      PUBLIC_VIEWS.vComputerTarget as ct ON\n                      cgm.ComputerTargetId = ct.ComputerTargetId INNER JOIN\n                      PUBLIC_VIEWS.vComputerTargetGroup as ctg ON\n                      cgm.ComputerTargetGroupId = ctg.ComputerTargetGroupId\nWHERE     (ctg.Name = @TargetGroup)\n\n-- And only select those for which an update is approved for install, the\n-- computer status for that update is either 2 (not installed), 3 (downloaded),\n-- 5 (failed), or 6 (installed pending reboot), and\n-- the update bulletin is the one provided.\n\n                              AND EXISTS\n                          (SELECT     1\n                            FROM          PUBLIC_VIEWS.vUpdateEffectiveApprovalPerComputer as ueapc INNER JOIN\n                                                   PUBLIC_VIEWS.vUpdateApproval as ua ON\n                                                   ua.UpdateApprovalId = ueapc.UpdateApprovalId INNER JOIN\n                                                   PUBLIC_VIEWS.vUpdateInstallationInfoBasic uiib ON\n                                                   uiib.ComputerTargetId = ct.ComputerTargetId AND\n                                                   ua.UpdateId = uiib.UpdateId\n                                                   inner join PUBLIC_VIEWS.vUpdate as u on ua.updateid=u.updateId\n                            WHERE      (ueapc.ComputerTargetId = ct.ComputerTargetId) AND\n                                                   (ua.Action = 'Install') AND (uiib.State IN (2, 3, 5, 6)) AND u.securityBulletin is not null and u.securityBulletin=@Bulletin )"
+  },
+  {
+    "objectID": "posts/2015-10-21-map-dsc-ext-downloads.html",
+    "href": "posts/2015-10-21-map-dsc-ext-downloads.html",
+    "title": "How to map downloads of the extension dependencies to your own location.",
+    "section": "",
+    "text": "Originally Posted on MSDN.\nNOTE: For information on OS support, and other features, please refer to our release history."
+  },
+  {
+    "objectID": "posts/2015-10-21-map-dsc-ext-downloads.html#adding-the-download-mappings-json",
+    "href": "posts/2015-10-21-map-dsc-ext-downloads.html#adding-the-download-mappings-json",
+    "title": "How to map downloads of the extension dependencies to your own location.",
+    "section": "Adding the Download Mappings JSON",
+    "text": "Adding the Download Mappings JSON\nIn the New-XAzureVmDscExtensionJson from the previous ASM blog, add the download mapping parameter with the type of HashTable. Additionally, we will update the wmfVersion parameter to not be required and set the default value to make the function easier to use.\n        [ValidateNotNullOrEmpty()]\n        [ValidateSet('4.0','latest','5.0PP')]\n        [string]\n        $WmfVersion = 'latest',\n\n        [AllowNull()]\n        [hashtable]\n        $DownloadMappings\nHere is an explanation of the values for download mapping:\n\nThe key of the hash table:\n\nShould be the key for the download in the following format: &lt;PKG&gt;_&lt;PKGVersion&gt;-&lt;Platform&gt;_&lt;PlatformVersion&gt;-&lt;Arch&gt;\n\nPKG\n\nWMF - for WMF Packages\nNET - for .NET packages\n\nPKGVerion\n\nThe Version of the Package. Currently WMF has two valid versions, 4.0 or 5.0PP (latest translates to 5.0PP.) .NET only has one valid version currently, 4.5.\n\nPlatform\n\nReserved for future use, currently always `Windows’\n\nPlatformVersion'       * Windows Server 2008 R2 -6.1* Windows Server 2012 -6.2* Windows Server 2012 R2 -6.3* Windows Server 2016 Technical Preview -10.0`\nArch\n\nAMD64/x64 - x64\nx86 - x86\n\n\nExample to map the download of WMF 4.0 for Windows Server 2008 R2 X64 to your own URL the key would be:\n\nWMF_4.0-Windows_6.1-x64\n\n\nThe value of the table must be a HTTPS URL to download the package without credential (query strings are allowed.)\n\nThis function should produce a JSON that looks something like this.\n    \"Properties\":  {\n                       \"DestinationPath\":  \"C:\\\\test\"\n                   },\n    \"advancedOptions\":  {\n        \"DownloadMappings\":  {\n            \"WMF_4.0-Windows_6.1-x64\":  \"https://mystorage.blob.core.windows.net/mypubliccontainer/Windows6.1-KB2819745-x64-MultiPkg.msu\"\n         }\n    },\n    \"WmfVersion\":  \"latest\",\n    \"ConfigurationFunction\":  \"configuration.ps1\\\\ConfigurationName\",\n    \"ModulesUrl\":  \"https://storageaccountname.blob.core.windows.net/windows-powershell-dsc/configuration.ps1.zip?&lt;sastoken&gt;\"\n}"
+  },
+  {
+    "objectID": "posts/2015-10-21-map-dsc-ext-downloads.html#putting-it-all-together-and-sending-it-to-a-vm",
+    "href": "posts/2015-10-21-map-dsc-ext-downloads.html#putting-it-all-together-and-sending-it-to-a-vm",
+    "title": "How to map downloads of the extension dependencies to your own location.",
+    "section": "Putting it all together and Sending it to a VM",
+    "text": "Putting it all together and Sending it to a VM\nWe put it all together the same as last time, just passing the HashTable with download key and the URL to map the download to. The following is an example of how to do that.\n$storageAccountName = 'storageaccountname'\n$publisher          = 'Microsoft.Powershell'\n$dscVersion         = '2.8'\n$serviceName        = 'servicename'\n$vmName             = 'vmName'\n$moduleName         = 'configuration.ps1'\n$blobName           = \"$moduleName.zip\"\n$configurationPath  = \"$PSScriptRoot\\$moduleName\"\n$ConfigurationName  = 'ConfigurationName'\n\n$modulesUrl = Get-XAzureDscPublishedModulesUrl -blobName $blobName -configurationPath $configurationPath `\n   -storageAccountName $storageAccountName\nWrite-Verbose -Message \"ModulesUrl: $modulesUrl\" -Verbose\n\n$PublicConfigurationJson = New-XAzureVmDscExtensionJson -moduleName $moduleName -modulesUrl $modulesUrl `\n    -properties @{DestinationPath = 'C:\\test'} -configurationName $ConfigurationName -DownloadMappings @{'WMF_4.0-Windows_6.1-x64' = 'https://mystorage.blob.core.windows.net/mypubliccontainer/Windows6.1-KB2819745-x64-MultiPkg.msu'}\nWrite-Verbose -Message \"PublicConfigurationJson: $PublicConfigurationJson\" -Verbose\n\n$vm = get-azurevm -ServiceName $serviceName -Name $vmName\n$vm = Set-AzureVMExtension `\n        -VM $vm `\n        -Publisher $publisher `\n        -ExtensionName 'DSC' `\n        -Version $dscVersion `\n        -PublicConfiguration $PublicConfigurationJson `\n        -ForceUpdate\n\n$vm | Update-AzureVM\nAfter the VM is finished update, you should have a VM that used the URL you specified to download the WMF needed to install the extension. I’ll have a follow-up blog on how to do this in ARM.\nI have published these samples to GitHub as a working script. Just update the, Service Name, etc. and run the script in the Azure PowerShell SDK."
+  },
+  {
+    "objectID": "posts/2015-10-21-map-dsc-ext-downloads.html#adding-the-download-mappings-to-the-arm-json",
+    "href": "posts/2015-10-21-map-dsc-ext-downloads.html#adding-the-download-mappings-to-the-arm-json",
+    "title": "How to map downloads of the extension dependencies to your own location.",
+    "section": "Adding the download mappings to the ARM JSON",
+    "text": "Adding the download mappings to the ARM JSON\nIn the previous ARM blog, I described how to use visual studio to create an ARM Template to select which WMF the extension used. I will start with the JSON that we ended with in that blog.\n{\n    \"name\": \"Microsoft.Powershell.DSC\",\n    \"type\": \"extensions\",\n    \"location\": \"[variables('location')]\",\n    \"apiVersion\": \"2015-05-01-preview\",\n    \"dependsOn\": [\n        \"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]\"\n    ],\n    \"tags\": {\n        \"displayName\": \"Microsoft.Powershell.DSC\"\n    },\n    \"properties\": {\n        \"publisher\": \"Microsoft.Powershell\",\n        \"type\": \"DSC\",\n        \"typeHandlerVersion\": \"2.1\",\n        \"autoUpgradeMinorVersion\": true,\n        \"settings\": {\n            \"modulesUrl\": \"[concat(parameters('_artifactsLocation'), '/', 'dsc.zip')]\",\n            \"sasToken\": \"[parameters('_artifactsLocationSasToken')]\",\n            \"configurationFunction\": \"[variables('Microsoft.Powershell.DSCConfigurationFunction')]\",\n            \"wmfVersion\": \"4.0\",\n            \"properties\": {\n                \"nodeName\": \"[variables('vmName')]\"\n            }\n        },\n        \"protectedSettings\": { }\n    }\n}\nTo that we will add the following JSON after modulesUrl.\n    \"advancedOptions\":  {\n        \"DownloadMappings\":  {\n            \"WMF_4.0-Windows_6.1-x64\":  \"https://mystorage.blob.core.windows.net/mypubliccontainer/Windows6.1-KB2819745-x64-MultiPkg.msu\"\n         }\n    },\nThis will result in the following JSON.\n{\n    \"name\": \"Microsoft.Powershell.DSC\",\n    \"type\": \"extensions\",\n    \"location\": \"[variables('location')]\",\n    \"apiVersion\": \"2015-05-01-preview\",\n    \"dependsOn\": [\n        \"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]\"\n    ],\n    \"tags\": {\n        \"displayName\": \"Microsoft.Powershell.DSC\"\n    },\n    \"properties\": {\n        \"publisher\": \"Microsoft.Powershell\",\n        \"type\": \"DSC\",\n        \"typeHandlerVersion\": \"2.1\",\n        \"autoUpgradeMinorVersion\": true,\n        \"settings\": {\n            \"modulesUrl\": \"[concat(parameters('_artifactsLocation'), '/', 'dsc.zip')]\",\n            \"advancedOptions\":  {\n                \"DownloadMappings\":  {\n                    \"WMF_4.0-Windows_6.1-x64\":  \"https://mystorage.blob.core.windows.net/mypubliccontainer/Windows6.1-KB2819745-x64-MultiPkg.msu\"\n                }\n            },\n            \"sasToken\": \"[parameters('_artifactsLocationSasToken')]\",\n            \"configurationFunction\": \"[variables('Microsoft.Powershell.DSCConfigurationFunction')]\",\n            \"wmfVersion\": \"4.0\",\n            \"properties\": {\n                \"nodeName\": \"[variables('vmName')]\"\n            }\n        },\n        \"protectedSettings\": { }\n    }\n}\nTo deploy, follow the instruction in the previous blog. I’ve put the updated solution I built on GitHub."
+  },
+  {
+    "objectID": "posts/2015-10-21-map-dsc-ext-downloads.html#feedback",
+    "href": "posts/2015-10-21-map-dsc-ext-downloads.html#feedback",
+    "title": "How to map downloads of the extension dependencies to your own location.",
+    "section": "Feedback",
+    "text": "Feedback\nPlease feel free to reach to us posting comments to this post, or by posting feedback on Connect."
+  },
+  {
+    "objectID": "posts/2016-04-19-decrypt-dsc-mof.html",
+    "href": "posts/2016-04-19-decrypt-dsc-mof.html",
+    "title": "Decrypting the current MOF on WMF5",
+    "section": "",
+    "text": "At the PowerShell Summit in Bellevue, I presented about how DSC now automatically encrypts the current.mof, in order to address some customer concerns about the existing encryption. After this talk, I was asked some questions about how to decrypt this new encryption. When I got back to work, I added a simple function, Unprotect-xDscConfiguration to the xDscDiagnostics module on GitHub. It takes a parameter for the name of the stage that you would like to decrypt (see the documention for the stage parameter of Remove-DSCConfigurationDocument). The function will currently only work locally (feel free to submit an issue or a PR) and must be run as administrator to be able to decrypt the MOF. Example usage and output are below as well."
+  },
+  {
+    "objectID": "posts/2016-04-19-decrypt-dsc-mof.html#installation",
+    "href": "posts/2016-04-19-decrypt-dsc-mof.html#installation",
+    "title": "Decrypting the current MOF on WMF5",
+    "section": "Installation",
+    "text": "Installation\nAt the time of the writing, the release version (2.2.0.0) of xDscDiagnostics dose not have this change, but there are instruction on how to install the development version using PowerShell Get on GitHub."
+  },
+  {
+    "objectID": "posts/2016-04-19-decrypt-dsc-mof.html#example-usage",
+    "href": "posts/2016-04-19-decrypt-dsc-mof.html#example-usage",
+    "title": "Decrypting the current MOF on WMF5",
+    "section": "Example Usage",
+    "text": "Example Usage\nUnprotect-xDscConfigurtion -Stage Previous"
+  },
+  {
+    "objectID": "posts/2016-04-19-decrypt-dsc-mof.html#example-output",
+    "href": "posts/2016-04-19-decrypt-dsc-mof.html#example-output",
+    "title": "Decrypting the current MOF on WMF5",
+    "section": "Example output",
+    "text": "Example output\n/*\n@TargetNode='localhost'\n@GeneratedBy=tplunk\n@GenerationDate=04/07/2016 16:54:16\n@GenerationHost=localhost\n*/\n\ninstance of MSFT_LogResource as $MSFT_LogResource1ref\n{\nSourceInfo = \"::1::24::log\";\n ModuleName = \"PsDesiredStateConfiguration\";\n ResourceID = \"[Log]example\";\n Message = \"example\";\n\nModuleVersion = \"1.0\";\n ConfigurationName = \"example\";\n};\ninstance of OMI_ConfigurationDocument\n\n                    {\n Version=\"2.0.0\";\n\n                        MinimumCompatibleVersion = \"1.0.0\";\n\n                        CompatibleVersionAdditionalProperties= {\"Omi_BaseResource:ConfigurationName\"};\n\n                        Author=\"tplunk\";\n\n                        GenerationDate=\"04/07/2016 16:54:16\";\n\n                        GenerationHost=\"localhost\";\n\n                        Name=\"example\";\n\n                    };"
+  },
+  {
+    "objectID": "posts/2020-05-06-sierpinski.html",
+    "href": "posts/2020-05-06-sierpinski.html",
+    "title": "Using DotNet-Interactive to render a scatter graph",
+    "section": "",
+    "text": "Sierpinski’s Gasket in DotNet-Interactive using Powershell"
+  },
+  {
+    "objectID": "posts/2020-05-06-sierpinski.html#using-dotnet-interactive-to-render-a-scatter-graph",
+    "href": "posts/2020-05-06-sierpinski.html#using-dotnet-interactive-to-render-a-scatter-graph",
+    "title": "Using DotNet-Interactive to render a scatter graph",
+    "section": "",
+    "text": "Sierpinski’s Gasket in DotNet-Interactive using Powershell"
+  },
+  {
+    "objectID": "posts/2020-05-06-sierpinski.html#sierpinskis-gasket-in-dotnet-interactive-using-powershell",
+    "href": "posts/2020-05-06-sierpinski.html#sierpinskis-gasket-in-dotnet-interactive-using-powershell",
+    "title": "Using DotNet-Interactive to render a scatter graph",
+    "section": "Sierpinski’s Gasket in DotNet-Interactive using Powershell",
+    "text": "Sierpinski’s Gasket in DotNet-Interactive using Powershell\nMy goal is just to demonstrate how to use a scatter plot.\n\nInitialization\nI’ll define the following: * size of the axis * number of points I’ll generate * two arrays to hold the coordinates of the points * x-axis * y-axis * a marker use for plotting * the class I’ll use to track the current point * an instance tracking the current point\n\n#Define the x and y axis max\n$max = 100\n\n#Define the number of points at which we will stop and render the chart\n$pointCount = 20000\n\n# Create the list of x and y location that the point landed on\n$x = [System.Collections.Generic.List[Double]]::new($pointCount)\n$y = [System.Collections.Generic.List[Double]]::new($pointCount)\n\n# Define the x-axis for the plot\n$xaxis = [XPlot.Plotly.Graph+Xaxis]::new()\n$xaxis.showticklabels = $false\n$xaxis.showgrid = $false\n$xaxis.zeroline = $false\n\n# Define the y-axis for the plot\n$yaxis = [XPlot.Plotly.Graph+Yaxis]::new()\n$yaxis.showticklabels = $false\n$yaxis.showgrid = $false\n$yaxis.zeroline = $false\n\n# Define the marker for a point\n$marker = [XPlot.Plotly.Graph+Marker]::new()\n$marker.color = \"rgb(34, 139, 37)\"\n$marker.Size = 2\n\n# Define a class to track the point\nclass point {\n    [double] $x=0\n    [double] $y=0\n}\n\n# Create the current point\n[point] $point = [point]::new()\n\n\n\n    \n        The below script needs to be able to find the current output cell; this is an easy method to get it.\n    \n    \n\n\n\n\n\nCreate the points\nFor sake of demo’ing this, well measure how long everything takes.\nWell create a loop for the number of points we want to create. In the loop, we will create a direction with 3 possible values, If it’s the first, we will move the point half way towards 0, 0. If it’s the second, we will move the point half way towards, max,0. If it’s the third, we will move the point half way towards, 0,max. Then, add the point to the arrays, and loop.\nWhen done with the loop, we will print the amount of time this process took.\n\n# Create a look for the number of points to create\n$seconds = (Measure-Command {\n    foreach($i in 1..$pointCount) {\n\n        # Get and random number to choose which direction to move\n        $direction = Get-random -Minimum 0 -Maximum 3\n        switch($direction){\n            # if 0, move toward 0,0\n            0{\n                Write-Verbose \"towards 0\"\n                $point.x= $point.x/2\n                $point.y = $point.y/2\n            }\n\n            # if 1, move toward max,0\n            1{\n                Write-Verbose \"towards xMax\"\n                $point.x= ($point.x+$max)/2\n                $point.y = $point.y/2\n\n            }\n\n            # if 2, move toward 0,max\n            2{\n                Write-Verbose \"towards yMax\"\n                $point.x= $point.x/2\n                $point.y = ($point.y+$max)/2        \n            }\n        }\n\n        # add the current point to the lists\n        $x.Add($point.x)\n        $y.Add($point.y)\n    }\n}).TotalSeconds\n\nWrite-Verbose -Message \"data creation seconds: $seconds for $pointCount points\" -Verbose\n\nVERBOSE: data creation seconds: 3.035501 for 20000 points\n\n\n\n\nPlotting the points\nFirst, create a scattergl trace. Then, assing the x and y arrays of points coordinates to the traces properties. Then, set the mode to markers Then, set the marker to the marker we initialized earlier.\nI’ll create a layout to make the plot a little bigger (550x550 is about the largest I could get it to reliably render in jupyter-lab.) Then, assign the y and x axis we created earlier to the apporiate properties. Then, use New-PlotlyChart to create the chart and Out-Display to render it.\nAgain, I print the time this took.\n\n# Create the trace of the points\n$seconds = (Measure-Command {\n$p1 = [XPlot.Plotly.Graph+Scattergl]::new()\n$p1.x  = $x.ToArray()\n$p1.y  = $y.ToArray()\n$p1.mode = \"markers\"\n$p1.marker  = $marker\n\n$layout = [XPlot.Plotly.Layout+Layout]::new()\n$layout.width = 550\n$layout.height = 550\n\n$layout.xaxis = $xaxis\n$layout.yaxis = $yaxis\n# Render the chart\nNew-PlotlyChart -trace $p1 -Layout $layout  | Out-Display\n}).TotalSeconds\nWrite-Verbose -Message \"rendering seconds: $seconds\" -Verbose\n\n\n\n\n\nVERBOSE: rendering seconds: 0.2375148"
+  },
+  {
+    "objectID": "posts/2012-03-20-wsus-install-win-8-preview.html",
+    "href": "posts/2012-03-20-wsus-install-win-8-preview.html",
+    "title": "Installing WSUS on Windows Server “8” Beta using PowerShell",
+    "section": "",
+    "text": "Originally posted on Technet.\n\nAuthors:\n\nTravis Plunk, Software Developer Engineer\nYuri Diogenes, Senior Technical Writer\n\n\n\nTechnical Reviewers:\n\nCecilia Cole, Program Manager\n\nIn our previous post, we demonstrated how to install the WSUS Role on the Windows Server “8” Beta using the new Server Manager. In this post you will learn how to perform the same task using PowerShell.\nTo install WSUS on Windows Server “8” Beta using PowerShell, follow the steps below:\n\nSign in on Windows Server “8” Beta\nOn the taskbar click Windows PowerShell button. \nIn the PowerShell Console type Install-WindowsFeature -Name UpdateServices, UpdateServices-Ui and press ENTER.\nThe installation process will start and a progress counter will appear on the screen. Wait until the installation reaches 100% and you receive a message that the installation succeeded before moving on to the next step.\nType & 'C:\\Program Files\\Update Services\\Tools\\WsusUtil.exe' postinstall contentdir=C:\\Mycontent and press ENTER.\nWait until you receive the message that the post installation successfully finished.\nType Exit and press ENTER to leave the PowerShell interface.\n\nAt this point the WSUS installation is completed and you may launch the WSUS Console using the Tools menu. When you launch WSUS for the first time the WSUS Configuration Wizard will appear. For more information about how to configure WSUS, read Step 3: Configure WSUS in the Deploying Windows Server Updates Services in the Organization article at the TechNet Library.\nIf you want to perform the full installation and post installation tasks using PowerShell you should run this script once you finish the installation via PowerShell.\nStay tuned for more exciting stuff on this blog and the Windows Server Blog from the server leadership team."
+  },
+  {
+    "objectID": "disclaimer.html",
+    "href": "disclaimer.html",
+    "title": "Work Disclaimer",
+    "section": "",
+    "text": "Disclaimer work makes me put up\nThe opinions and views expressed in this blog are those of the author and do not necessarily state or reflect those of Microsoft."
+  },
+  {
+    "objectID": "posts/2015-10-01-WMF-4-dsc-ext-asm.html",
+    "href": "posts/2015-10-01-WMF-4-dsc-ext-asm.html",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)",
+    "section": "",
+    "text": "Originally posted on MSDN."
+  },
+  {
+    "objectID": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#overview",
+    "href": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#overview",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)",
+    "section": "Overview",
+    "text": "Overview\nIn version 2.7 of the Azure DSC Extension, we added support to leave your Virtual Machine on the latest supported version of WMF 4.0. This blog will show you how to use this feature in Azure Cloud Service Manager (ASM). This assumes you already know how to create a VM in the Azure PowerShell SDK. If you don’t please see MSDN. We are working to add this feature into the Azure Powershell SDK DSC extension Cmdlets directly. Currently the WMF 4 feature is only available if you form the JSON yourself and send it to the extension using the generic extension Cmdlet.\nIn this Example I will show you:\n\nHow to Create the JSON you need to send to the extension.\nHow to create URI to published configuration which will only let people with this URI access it, known as the `ModulesUrl’ to the extension.\nHow to send this JSON to the extension on an existing VM."
+  },
+  {
+    "objectID": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#creating-the-json",
+    "href": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#creating-the-json",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)",
+    "section": "Creating the JSON",
+    "text": "Creating the JSON\nTo do this, use the Set-AzureVMExtension Cmdlet rather than the Set-AzureVMDscExtension Cmdlet and pass the JSON using the -PublicConfiguration parameter. The following function New-XAzureVmDscExtensionJson will create the JSON needed for this example.\n# Create a Json to send the the DSC VM Extension\nfunction New-XAzureVmDscExtensionJson\n{\n[CmdletBinding()]\n    param(\n\n        [Parameter(Mandatory = $true)]\n        [ValidateNotNullOrEmpty()]\n        [string]\n        $moduleName,\n\n        [Parameter(Mandatory = $false)]\n        [ValidateNotNull()]\n        [string]\n        $modulesUrl,\n\n        [AllowNull()]\n        [HashTable]\n        $properties,\n\n        [Parameter(Mandatory = $true)]\n        [ValidateNotNullOrEmpty()]\n        [string]\n        $configurationName,\n\n        [Parameter(Mandatory = $true)]\n        [ValidateNotNullOrEmpty()]\n        [ValidateSet('4.0','latest','5.0PP')]\n        [string]\n        $WmfVersion\n    )\n\n    $publicSettingsTable = @{\n        Properties = $properties\n        WmfVersion = $WmfVersion\n    }\n\n    if($null -ne $modulesUrl)\n    {\n      $publicSettingsTable.Add('ModulesUrl',$modulesUrl)\n    }\n\n    $publicSettingsTable.Add('ConfigurationFunction' , \"${ModuleName}\\${configurationName}\")\n\n    return ConvertTo-Json -Depth 8 $publicSettingsTable\n}\nHere is an explanation of the values:\n\nmodulesUrl\n\nShould be a URL to a zip file generated by Publish-AzureVmDscConfiguration\n\nmoduleName\n\nThe extension will look for this file name inside the zip file for the configuration.\n\nconfigurationName\n\nThe extension will look for a Configuration with this function inside the file/module.\n\nWmfVersion\n\nThe version of WMF to upgrade or leave the machine on. Currently supported values:\n\n4.0 indicating to upgrade to the currently supported version of WMF 4.0 if a newer version isn’t already installed.\n5.0PP indicating to upgrade to the WMF 5.0PP.\nlatest indicating to upgrade to the latest version of WMF.\n\n\nproperties\n\nA Hash-table of parameters to be passed to the configuration\n\n\nThis function should produce a JSON that looks something like this.\n\"Properties\":  {\n                       \"DestinationPath\":  \"C:\\\\test\"\n                   },\n    \"WmfVersion\":  \"4.0\",\n    \"ConfigurationFunction\":  \"configuration.ps1\\\\ConfigurationName\",\n    \"ModulesUrl\":  \"https://storageaccountname.blob.core.windows.net/windows-powershell-dsc/configuration.ps1.zip?&lt;sastoken&gt;\"\n}"
+  },
+  {
+    "objectID": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#creating-the-modulesurl-to-generate-the-json-we-need-themodulesurlthis-is-the-url-of-the-published-configuration-with-any-querystring-needed-to-access-the-url.-the-following-functionget-xazuredscpublishedmodulesurl-will-publish-the-configuration-create-a-read-only-sastoken-for-1-hour-and-return-the-full-uri-to-the-blob-with-the-sastoken.",
+    "href": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#creating-the-modulesurl-to-generate-the-json-we-need-themodulesurlthis-is-the-url-of-the-published-configuration-with-any-querystring-needed-to-access-the-url.-the-following-functionget-xazuredscpublishedmodulesurl-will-publish-the-configuration-create-a-read-only-sastoken-for-1-hour-and-return-the-full-uri-to-the-blob-with-the-sastoken.",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)",
+    "section": "Creating the ModulesUrl' To generate the JSON, we need themodulesUrlthis is the URL of the published configuration, with any querystring needed to access the URL.  The following functionGet-XAzureDscPublishedModulesUrl` will publish the configuration, create a read-only SASToken for 1 hour, and return the full URI to the blob with the SASToken.",
+    "text": "Creating the ModulesUrl' To generate the JSON, we need themodulesUrlthis is the URL of the published configuration, with any querystring needed to access the URL.  The following functionGet-XAzureDscPublishedModulesUrl` will publish the configuration, create a read-only SASToken for 1 hour, and return the full URI to the blob with the SASToken.\n# Publish a DSC configuration, Create a SasToken, and return the full URI with the SASToken\nfunction Get-XAzureDscPublishedModulesUrl\n{\n\n  [CmdletBinding()]\n  param\n  (\n    [Parameter(HelpMessage='The storage container to publish the configuration to')]\n    [ValidateNotNullOrEmpty()]\n    [String]\n    $StorageContainer  = 'windows-powershell-dsc',\n\n    [Parameter(Mandatory=$true, Position=0, HelpMessage='The name of the blob.')]\n    [ValidateNotNullOrEmpty()]\n    [String]\n    $blobName,\n\n    [Parameter(Mandatory=$true, Position=1, HelpMessage='The path to the configuration to publish')]\n    [ValidateNotNullOrEmpty()]\n    [String]\n    $configurationPath,\n\n    [Parameter(Mandatory=$true, Position=2, HelpMessage='The name of the storage account to publish to')]\n    [ValidateNotNullOrEmpty()]\n    [String]\n    $storageAccountName\n  )\n\n  # Get the Storage Account Context\n  function Get-AzureDscStorageAccountContext\n  {\n      param(\n        [Parameter(Mandatory=$true)]\n        [ValidateNotNullOrEmpty()]\n        [String]\n        $storageAccountName\n      )\n      $azureStorageAccount = Get-AzureStorageAccount -StorageAccountName $storageAccountName\n      if(!$azureStorageAccount)\n      {\n        throw 'storage account not found'\n      }\n\n      $storageAccessKey      = (Get-AzureStorageKey –StorageAccountName $StorageAccountName).Primary\n      $storageContext = New-AzureStorageContext -StorageAccountName $StorageAccountName `\n            -StorageAccountKey $storageAccessKey\n\n      return $storageContext\n  }\n\n  $expiryTime = [DateTime]::UtcNow.AddMinutes(60)\n\n  #Publish the configuration\n  Publish-AzureVMDscConfiguration -ConfigurationPath $configurationPath -Verbose -Force `\n      -storageContext (Get-AzureDscStorageAccountContext -storageAccountName $storageAccountName) `\n      -ContainerName $StorageContainer\n\n  # Create a SasToken for the Configuration\n  return New-AzureStorageBlobSASToken -Container $StorageContainer -Blob $blobName -Permission r `\n      -ExpiryTime $expiryTime -Context (Get-AzureDscStorageAccountContext -storageAccountName $storageAccountName) -FullUri\n}"
+  },
+  {
+    "objectID": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#putting-it-all-together-and-sending-it-to-a-vm",
+    "href": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#putting-it-all-together-and-sending-it-to-a-vm",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)",
+    "section": "Putting it all together and Sending it to a VM",
+    "text": "Putting it all together and Sending it to a VM\nNow we need to call the function to get the modulesUrl, pass the value to the function to get the JSON along with the rest of the parameters, get our VM object, and call Set-AzureVMExtension on the VM with the JSON and the parameter to send it the the DSC extension. The following is an example of how to do that.\n$storageAccountName = 'storageaccountname'\n$publisher          = 'Microsoft.Powershell'\n$dscVersion         = '2.7'\n$serviceName        = 'servicename'\n$vmName             = 'vmName'\n$moduleName         = 'configuration.ps1'\n$blobName           = \"$moduleName.zip\"\n$configurationPath  = \"$PSScriptRoot\\$moduleName\"\n$ConfigurationName  = 'ConfigurationName'\n\n$modulesUrl = Get-XAzureDscPublishedModulesUrl -blobName $blobName -configurationPath $configurationPath `\n   -storageAccountName $storageAccountName\nWrite-Verbose -Message \"ModulesUrl: $modulesUrl\" -Verbose\n\n$PublicConfigurationJson = New-XAzureVmDscExtensionJson -moduleName $moduleName -modulesUrl $modulesUrl `\n    -properties @{DestinationPath = 'C:\\test'} -configurationName $ConfigurationName -WmfVersion '4.0' -Verbose\nWrite-Verbose -Message \"PublicConfigurationJson: $PublicConfigurationJson\" -Verbose\n\n$vm = get-azurevm -ServiceName $serviceName -Name $vmName\n$vm = Set-AzureVMExtension `\n        -VM $vm `\n        -Publisher $publisher `\n        -ExtensionName 'DSC' `\n        -Version $dscVersion `\n        -PublicConfiguration $PublicConfigurationJson `\n        -ForceUpdate\n\n$vm | Update-AzureVM\nAfter the VM is finished update, you should have a WMF 4 VM. I’ll have a follow-up blog on how to do this in ARM.\nI have published these samples to GitHub as a working script. Just update the, Service Name, etc. and run the script in the Azure PowerShell SDK."
+  },
+  {
+    "objectID": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#notes",
+    "href": "posts/2015-10-01-WMF-4-dsc-ext-asm.html#notes",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)",
+    "section": "Notes",
+    "text": "Notes\nWindows Server 2016 Technical Preview has the equivalent of WMF 5 already installed. Therefore, specifying WMF 4 for this OS is not a valid option."
+  },
+  {
+    "objectID": "posts/2019-04-09-powershell-release-improvements.html",
+    "href": "posts/2019-04-09-powershell-release-improvements.html",
+    "title": "PowerShell Core Release Improvements",
+    "section": "",
+    "text": "For PowerShell Core, we basically had to build a new engineering system to build and release it. How we build it has evolved over time as we learn and our other teams have implemented features that make some tasks easier. We are finally at a state that we believe we can engineer a system that builds PowerShell Core for release with as little human interaction as necessary."
+  },
+  {
+    "objectID": "posts/2019-04-09-powershell-release-improvements.html#overview",
+    "href": "posts/2019-04-09-powershell-release-improvements.html#overview",
+    "title": "PowerShell Core Release Improvements",
+    "section": "",
+    "text": "For PowerShell Core, we basically had to build a new engineering system to build and release it. How we build it has evolved over time as we learn and our other teams have implemented features that make some tasks easier. We are finally at a state that we believe we can engineer a system that builds PowerShell Core for release with as little human interaction as necessary."
+  },
+  {
+    "objectID": "posts/2019-04-09-powershell-release-improvements.html#current-state",
+    "href": "posts/2019-04-09-powershell-release-improvements.html#current-state",
+    "title": "PowerShell Core Release Improvements",
+    "section": "Current state",
+    "text": "Current state\nBefore the changes described here, we had one build per platform. After the binaries were built, they had to be tested and then packaged into the various packages for release. This is done in a private Azure DevOps Pipelines instance. In this state, it took a good deal of people’s time to do a PowerShell Core release. Before these changes, it would take 3-4 people about a week to release PowerShell Core. During this time, the percentage of time people were focused on the release probably averaged 50%."
+  },
+  {
+    "objectID": "posts/2019-04-09-powershell-release-improvements.html#goals",
+    "href": "posts/2019-04-09-powershell-release-improvements.html#goals",
+    "title": "PowerShell Core Release Improvements",
+    "section": "Goals",
+    "text": "Goals\n\nRemain compliant with Microsoft and external standards we are required to follow.\nAutomate as much of the build, test, and release process as possible.\n\nThis should significantly reduce the amount of human toil needed in each release.\n\nHopefully, provide some tools or practices others can follow."
+  },
+  {
+    "objectID": "posts/2019-04-09-powershell-release-improvements.html#what-we-have-done-so-far",
+    "href": "posts/2019-04-09-powershell-release-improvements.html#what-we-have-done-so-far",
+    "title": "PowerShell Core Release Improvements",
+    "section": "What we have done so far",
+    "text": "What we have done so far\n\nWe ported our CI tests to Azure DevOps Pipelines.\n\nWe have used this in a release and we see that this allowed us to run at least those test in our private Azure DevOps Pipelines instance.\nThis saves us 2-4 man hours per release and a day or more of calendar time if all goes well.\n\nWe have moved our release build definitions to YAML.\n\nWe have used this in a release and we see that this allows us to treat the release build as code and iterate more quickly.\nThis saves us 1-2 man hours per release, when we have done everything correctly.\n\nI have begun to merge the the different platform builds into one combined build.\n\nWe have not yet used this in a release but we believe this should allow us to have a single button that gets us ready to test.\nThis has not been in use long enough to determine how much time it will save.\n\nWe have begun to automate our releases testing. Our release testing is very similar to our CI testing just across more distributions and versions of Windows. We plan to be able to run this through Azure DevOps Pipelines as well.\n\nThis has not been in use long enough to determine how much time it will save.\n\nWe have automated the generation of the draft of the change log and categorizing the entries based on labels the maintainers apply to the PRs. After generation, the maintainers still need to review the change descriptions to make sure it makes sense in the change log.\n\nThis saves us 2-4 man hours per release.\n\n\n\nSummary of improvements\nAfter all these changes, we can now release with 2-3 people in 2 to 3 days, with an average of 25% time focusing on the release."
+  },
+  {
+    "objectID": "posts/2019-04-09-powershell-release-improvements.html#details-of-the-combined-build",
+    "href": "posts/2019-04-09-powershell-release-improvements.html#details-of-the-combined-build",
+    "title": "PowerShell Core Release Improvements",
+    "section": "Details of the combined build",
+    "text": "Details of the combined build\nAzure DevOps Pipelines allows us to define complex build pipeline. The build will be complex but things like templates in Azure DevOps makes breaking it into a manageable pieces.\nAlthough this design does not technically reduce the number of parts, one significant thing it does for us it put all of our artifacts, in one place. Having the artifacts in one place, reduces the input to the steps in the rest of the build such as test and release.\nI’m not going to discuss it much, but in order to coordinate this work we are keeping diagram of the build. I’ll include it here. If you want me to post another blog on the details, please leave a comment.\n\n\n\ndiagram"
+  },
+  {
+    "objectID": "posts/2019-04-09-powershell-release-improvements.html#what-is-left-to-do",
+    "href": "posts/2019-04-09-powershell-release-improvements.html#what-is-left-to-do",
+    "title": "PowerShell Core Release Improvements",
+    "section": "What is left to do",
+    "text": "What is left to do\n\nWe still have to add the other various NuGet package build steps to the coordinated build.\nWe need to automate functionality (CI tests) across a representative sample of supported platforms.\nIt would be nice if we could enforce in GitHub the process that helps us automate the change log generation.\nWe need to automate the release process including:\n\nAutomating package testing. For example, MSI, Zip, Deb, RPM, and Snap.\nAutomating the actual release to GitHub, mcr.microsoft.com, packages.microsoft.com and the Snap store."
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "",
+    "text": "As you start using Windows PowerShell Desired State Configuration (DSC), you might need to specify credentials for resources. In a previous post we showed you how to define a resource that has a credential property. In this post, I’ll discuss how to properly encrypt credentials when used in a DSC configuration."
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html#introduction",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html#introduction",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "",
+    "text": "As you start using Windows PowerShell Desired State Configuration (DSC), you might need to specify credentials for resources. In a previous post we showed you how to define a resource that has a credential property. In this post, I’ll discuss how to properly encrypt credentials when used in a DSC configuration."
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html#prerequisites",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html#prerequisites",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nFirst, let us discuss the requirements to encrypt a DSC configuration.\n\nYou must have an Encryption capable certificate on the target node in the Local Computer’s Personal Store (in PowerShell the path to the store is Cert:\\LocalMachine\\My, we used the workstation authentication template, see all templates here.)\nIf you are running the configuration, from a separate machine than the target node, you must export the public key of the certificate and import it on the machine you will be running the configuration from.\n\nIt is important that you keep the private key secure. Since the public key is all that is needed to encrypt, I recommend you only export the public key to the machine you are writing your configurations on in order to keep the private key more secure.\n\n\n#Assumptions For this article I’m going to assume:\n\nYou are using something like Active Directory Certificate Authority to issue and distribute the encryption certificates.\nAdministrator access to the target node must be properly secured, as anyone with administrator access to the target node should be trusted with the credentials as the administrators can decrypt the credentials with enough effort."
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html#overview",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html#overview",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "Overview",
+    "text": "Overview\nIn order to encrypt credentials in a DSC configuration, you must follow a process. You must have a certificate on each target node which supports encryption. After that, you must have the public key and thumbprint of the certificate on the machine you are authoring the configuration on. The public key must be provided using the configuration data, and I’ll show you how to provide the thumbprint using configuration data as well. You must write a configuration script which configures the machine using the credentials, and sets up decryption by configuring the target node’s Local Configuration Manager (LCM) to decrypt the configuration using the encryption certificate as identified by its thumbprint. Finally, you must run the configuration, including, setting the LCM settings and starting the DSC configuration."
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html#configuration-data",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html#configuration-data",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "Configuration Data",
+    "text": "Configuration Data\nWhen dealing with encryption of DSC configuration, you must understand DSC configuration data. This structure describes, to a configuration, the list of nodes to be operated on, if credentials in a configuration should be encrypted or not for each node, how credential will be encrypted, and other information you want to include. Below is an example of configuration data for a machine named targetNode, which I’d like to encrypt using a public key I’ve exported and saved to C:\\publicKeys\\targetNode.cer.\n$ConfigData=    @{\n        AllNodes = @(\n                        @{\n                            # The name of the node we are describing\n                            NodeName = “targetNode”\n\n                            # The path to the .cer file containing the\n                            # public key of the Encryption Certificate\n                            # used to encrypt credentials for this node\n                            CertificateFile = “C:\\publicKeys\\targetNode.cer”\n\n\n                            # The thumbprint of the Encryption Certificate\n                            # used to decrypt the credentials on target node\n                            Thumbprint = “AC23EA3A9E291A75757A556D0B71CBBF8C4F6FD8″\n                        };\n                    );\n    }"
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html#configuration-script",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html#configuration-script",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "Configuration Script",
+    "text": "Configuration Script\nAfter we have the configuration data, we can start building our configuration. Since credential are important to keep secure, you should always take the credential as a parameter to your configuration. This is so the credentials are stored for the shortest time possible. Below I’ll give an example of copying a file from a share that is secured to a user.\nconfiguration CredentialEncryptionExample\n{\n    param(\n        [Parameter(Mandatory=$true)]\n        [ValidateNotNullorEmpty()]\n        [PsCredential] $credential\n        )\n\n\n    Node $AllNodes.NodeName\n    {\n        File exampleFile\n        {\n            SourcePath = “\\\\Server\\share\\path\\file.ext”\n            DestinationPath = “C:\\destinationPath”\n            Credential = $credential\n        }\n    }\n}\nWhen you run CredentialEncryptionExample, DSC will prompt your for the credential and encrypt the mof using the CertificateFile associated with the node in the configuration data."
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html#setting-up-decryption",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html#setting-up-decryption",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "Setting up Decryption",
+    "text": "Setting up Decryption\nThere is still one issue. When you run Start-DscConfiguration, the Local Configuration Manager (LCM) of target node does not know which certificate to use to decrypt the credentials. We need to add a LocalConfigurationManager resource to tell it. You must set the CertificateId to the thumbprint of the certificate. The first question becomes how to get the thumbprint. Below is an example of how to find a local certificate that would work for encryption (you may need to customize this to find the exact certificate you want to use.)\n# Get the certificate that works for encryption\nfunction Get-LocalEncryptionCertificateThumbprint\n{\n    (dir Cert:\\LocalMachine\\my) | %{\n                        # Verify the certificate is for Encryption and valid\n                        if ($_.PrivateKey.KeyExchangeAlgorithm -and $_.Verify())\n                        {\n                            return $_.Thumbprint\n                        }\n                    }\n}\nAfter we have the thumbprint, we use this to build the configuration data (given in the above configuration data example.) Below is an example of the updated configuration with the LocalConfigurationManager resource, getting the value from the node in the configuration data.\nconfiguration CredentialEncryptionExample\n{\n    param(\n        [Parameter(Mandatory=$true)]\n        [ValidateNotNullorEmpty()]\n        [PsCredential] $credential\n        )\n\n    Node $AllNodes.NodeName\n    {\n        File exampleFile\n        {\n            SourcePath = “\\\\Server\\share\\path\\file.ext”\n            DestinationPath = “C:\\destinationPath”\n            Credential = $credential\n        }\n\n        LocalConfigurationManager\n        {\n             CertificateId = $node.Thumbprint\n        }\n    }\n}"
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html#running-the-configuration",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html#running-the-configuration",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "Running the Configuration",
+    "text": "Running the Configuration\nFrom this point, we need to run the configuration, it will output one *.meta.mof to configure LCM to decrypt the credentials using the certificate installed to the local machine store identified by the thumbprint, and one mof to apply the configuration. First, you will need to use Set-DscLocalConfigurationManager to apply the *.meta.mof and then, Start-DscConfiguration to apply the configuration. Here is an example of how you would run this:\nWrite-Host “Generate DSC Configuration…”\nCredentialEncryptionExample -ConfigurationData $ConfigData -OutputPath .\\CredentialEncryptionExample\n\nWrite-Host “Setting up LCM to decrypt credentials…”\nSet-DscLocalConfigurationManager .\\CredentialEncryptionExample -Verbose\n\nWrite-Host “Starting Configuration…”\nStart-DscConfiguration .\\CredentialEncryptionExample -wait -Verbose\nThis example would push the configuration to the target node. If you reference our blog on how to setup a pull configuration, you can modify the setting in the LocalConfigurationManager resource and use these steps to deploy this using a pull server."
+  },
+  {
+    "objectID": "posts/2014-01-21-Secure-dsc-cred.html#summary",
+    "href": "posts/2014-01-21-Secure-dsc-cred.html#summary",
+    "title": "Want to secure credentials in Windows PowerShell Desired State Configuration?",
+    "section": "Summary",
+    "text": "Summary\nYou should be able to build a sample that uses credentials securely in DSC using the information in this post. I have written a more complete sample and have attached the code here:\nCredentialSample.psm1\nThe sample expands on what we discussed here and includes a helper cmdlet to export and copy the public keys to the local machine and an example how to use it.\nTravis Plunk\nWindows PowerShell DSC Test"
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "",
+    "text": "Originally posted on MSDN."
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#overview",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#overview",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "Overview",
+    "text": "Overview\nIn version 2.7 of the Azure DSC Extension, we added support to leave your Virtual Machine on the latest supported version of WMF 4.0. This blog will show you how to use this feature in Azure Resource Manager (ARM) templates. For this, I will use the Azure Resource Manger Tools, that were released with Azure SDK 2.6 for .NET. I will assume you already have Visual Studio 2015 setup. I also assume you have read ‘How to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)’, as it describes the meaning of some of the terms. The MSDN topic ‘Creating and Deploying Azure Resource Group Deployment Projects’ has a general walk-though of using the tools I will use in this blog. I would suggest you read though and refer back to this page if you loose you way while\nIn this Example I will show you:\n\nHow to setup the SDK for .NET, which will add the tools to Visual Studio 2015 to design and deploy an ARM Template.\nHow to create an ARM project in Visual Studio\nHow to add DSC to the ARM template\nHow to send this JSON to the extension on an existing VM."
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#setup-azure-sdk-for-.net",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#setup-azure-sdk-for-.net",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "Setup Azure SDK for .NET",
+    "text": "Setup Azure SDK for .NET\nIf you haven’t already, download and install the latest Azure SDK for .NET. At the time I wrote this, the current download link for the Azure SDK for .NET was here. The current links to download the SDK can be found here."
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#create-a-arm-project",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#create-a-arm-project",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "Create a ARM Project",
+    "text": "Create a ARM Project\nSee the MSDN topic ‘Creating and Deploying Azure Resource Group Deployment Projects’ on how to ‘Create Azure Resource Group projects’."
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#add-powershell-dsc-extension",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#add-powershell-dsc-extension",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "Add Powershell DSC Extension",
+    "text": "Add Powershell DSC Extension\nOnce you have created you project, you need to add the ‘Powershell DSC Extension’ to the ARM Template.\n\nIn Solution Explorer, expand templates\nClick WindowsVirtualMachine.json\nOpen the JSON Outline (this is usually on the left hand pane)\nIn the JSON Outline, expand resources\nIn the JSON Outline, right click Virtual Machine\nIn the context menu, click Add New Resource\nIn the Add Resource Window, click Powershell DSC Extension\nIn the Add Resource Window, in the Name field, type Microsoft.Powershell.DSC (Note, this is important for the SDK to work properly.)\nIn the Add Resource Window, click Add\n\nThis should add a section of JSON which looks like this:\n{\n    \"name\": \"Microsoft.Powershell.DSC\",\n    \"type\": \"extensions\",\n    \"location\": \"[variables('location')]\",\n    \"apiVersion\": \"2015-05-01-preview\",\n    \"dependsOn\": [\n        \"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]\"\n    ],\n    \"tags\": {\n        \"displayName\": \"Microsoft.Powershell.DSC\"\n    },\n    \"properties\": {\n        \"publisher\": \"Microsoft.Powershell\",\n        \"type\": \"DSC\",\n        \"typeHandlerVersion\": \"2.1\",\n        \"autoUpgradeMinorVersion\": true,\n        \"settings\": {\n            \"modulesUrl\": \"[concat(parameters('_artifactsLocation'), '/', 'dsc.zip')]\",\n            \"sasToken\": \"[parameters('_artifactsLocationSasToken')]\",\n            \"configurationFunction\": \"[variables('Microsoft.Powershell.DSCConfigurationFunction')]\",\n            \"properties\": {\n                \"nodeName\": \"[variables('vmName')]\"\n            }\n        },\n        \"protectedSettings\": { }\n    }\n}"
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#using-the-new-wmf-version-feature",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#using-the-new-wmf-version-feature",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "Using the new WMF Version feature",
+    "text": "Using the new WMF Version feature\n\nUpdating the Extension version\nYou must make sure you use at least the 2.7 version of the extension. In the DSC Extension JSON update \"typeHandlerVersion\": \"2.1\" to \"typeHandlerVersion\": \"2.7\". This will update the DSC Extension version ARM installs from 2.1 to 2.7.\n\n\nAdding the property to configure the WMF Version\nYou must tell the DSC Extension what version of the WMF you want to use. If you don’t it will use the latest. In the settings section add a wmfVersion property with the value 4.0. Here is an example \"wmfVersion\": \"[parameters('wmfVersion')]\".\nAfter this the JSON should look like this:\n{\n    \"name\": \"Microsoft.Powershell.DSC\",\n    \"type\": \"extensions\",\n    \"location\": \"[variables('location')]\",\n    \"apiVersion\": \"2015-05-01-preview\",\n    \"dependsOn\": [\n        \"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]\"\n    ],\n    \"tags\": {\n        \"displayName\": \"Microsoft.Powershell.DSC\"\n    },\n    \"properties\": {\n        \"publisher\": \"Microsoft.Powershell\",\n        \"type\": \"DSC\",\n        \"typeHandlerVersion\": \"2.1\",\n        \"autoUpgradeMinorVersion\": true,\n        \"settings\": {\n            \"modulesUrl\": \"[concat(parameters('_artifactsLocation'), '/', 'dsc.zip')]\",\n            \"sasToken\": \"[parameters('_artifactsLocationSasToken')]\",\n            \"configurationFunction\": \"[variables('Microsoft.Powershell.DSCConfigurationFunction')]\",\n            \"wmfVersion\": \"4.0\",\n            \"properties\": {\n                \"nodeName\": \"[variables('vmName')]\"\n            }\n        },\n        \"protectedSettings\": { }\n    }\n}"
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#deploying-your-configuration",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#deploying-your-configuration",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "Deploying your configuration",
+    "text": "Deploying your configuration\nThe solution should include a Microsoft.Powershell.DSCConfiguration.ps1 which it will deploy using the DSC Extension.\nSee the MSDN topic ‘Creating and Deploying Azure Resource Group Deployment Projects’ on ‘Deploying an Azure Resource Group project to an Azure resource group’.\nFor a more detailed description of how to deploy see the blog “Deploying a Website with Content through Visual Studio with Resource Groups”"
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#summary",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#summary",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "Summary",
+    "text": "Summary\nThis should be enough to let you choose which version of WMF you want to use with ARM. I’ve put the solution I built on GitHub and turned the WmfVersion into a parameter on the template. This will let you choose what version you want at deployment time. I also modified the default DSC configuration to report the WMF major Version so it’s easy to verify it is working without logging into the machine."
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#notes",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#notes",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "Notes",
+    "text": "Notes\nWindows Server 2016 Technical Preview has the equivalent of WMF 5 already installed. Therefore, specifying WMF 4 for this OS is not a valid option."
+  },
+  {
+    "objectID": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#references",
+    "href": "posts/2015-10-02-WMF-4-dsc-ext-arm.html#references",
+    "title": "How to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)",
+    "section": "References",
+    "text": "References\nIf you want to dive in further on ARM concepts, Greg Oliver has written the blog “Developing DSC scripts for the Azure Resource Manager DSC Extension”."
+  },
+  {
+    "objectID": "posts/2011-08-06-wsus-dc-best-practices.html",
+    "href": "posts/2011-08-06-wsus-dc-best-practices.html",
+    "title": "Guidance about WSUS on a Domain Controller",
+    "section": "",
+    "text": "Originally posted on TechNet"
+  },
+  {
+    "objectID": "posts/2011-08-06-wsus-dc-best-practices.html#introduction",
+    "href": "posts/2011-08-06-wsus-dc-best-practices.html#introduction",
+    "title": "Guidance about WSUS on a Domain Controller",
+    "section": "Introduction",
+    "text": "Introduction\nA common question that comes up during WSUS planning phase is if WSUS is supported on when installed on a Domain Controller. Although this is documented in TechNet in various locations, it is important to highlight some additional recommendations as well as enumerate the main source of documentation for that. The goal of this article is to consolidate the Guidance on running WSUS on a Domain Controller."
+  },
+  {
+    "objectID": "posts/2011-08-06-wsus-dc-best-practices.html#additional-considerations-for-domain-controllers-and-wsus",
+    "href": "posts/2011-08-06-wsus-dc-best-practices.html#additional-considerations-for-domain-controllers-and-wsus",
+    "title": "Guidance about WSUS on a Domain Controller",
+    "section": "Additional Considerations for Domain Controllers and WSUS",
+    "text": "Additional Considerations for Domain Controllers and WSUS\n\nThe best practice is to not run WSUS on a Domain Controller. “If WSUS is installed a domain controller, this will cause database access issues due to how the database is configured.” This is documented in this best practice article.\n“You cannot use a server configured as a domain controller for the back end of the remote SQL pair.” This is documented in the Deployment Guide.\n“When you Configure WSUS for Network Load Balancing, none of the servers taking part in the cluster should be a front-end domain controller.” This is documented in the Deployment Guide.\nIf someone unfamiliar with Domain Controllers is troubleshooting a WSUS and removes the Windows Internal Database, this would be catastrophic to the domain.\nIt is important to emphasize that by adding another critical role (such as patch management) on the Domain Controller you increase the overall impact in case this server goes offline for any reason.\nSeparation of server roles is a vital recommendation for high availability scenarios. For this reason, consider server virtualization, where each server role will be in a different virtual machine.\n\nThanks to Rob Coffey and Yuri Diogenes for his help with this Article."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "TravisEz13",
+    "section": "",
+    "text": "Using DotNet-Interactive to render a scatter graph\n\n\n\n\n\n\n\nJupyter\n\n\n\n\n\n\n\n\n\n\n\nMay 6, 2020\n\n\n\n\n\n\n  \n\n\n\n\nDecrypting the current MOF on WMF5\n\n\n\n\n\n\n\nDSC\n\n\n\n\nDecrypting the current MOF on WMF5\n\n\n\n\n\n\nApr 4, 2016\n\n\n\n\n\n\n  \n\n\n\n\nHow to map downloads of the extension dependencies to your own location.\n\n\n\n\n\n\n\nDSC\n\n\n\n\nHow to map downloads of the extension dependencies to your own location.\n\n\n\n\n\n\nOct 21, 2015\n\n\n\n\n\n\n  \n\n\n\n\nHow to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)\n\n\n\n\n\n\n\nDSC\n\n\n\n\nHow to use WMF 4 with Azure DSC Extension in Azure Resource Manager (ARM)\n\n\n\n\n\n\nOct 2, 2015\n\n\n\n\n\n\n  \n\n\n\n\nHow to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)\n\n\n\n\n\n\n\nDSC\n\n\n\n\nHow to use WMF 4 with Azure DSC Extension in Azure Cloud Service Manager (ASM)\n\n\n\n\n\n\nOct 1, 2015\n\n\n\n\n\n\n  \n\n\n\n\nWant to secure credentials in Windows PowerShell Desired State Configuration?\n\n\n\n\n\n\n\nDSC\n\n\n\n\nWant to secure credentials in Windows PowerShell Desired State Configuration?\n\n\n\n\n\n\nJan 21, 2014\n\n\n\n\n\n\n  \n\n\n\n\nInstalling WSUS on Windows Server “8” Beta using PowerShell\n\n\n\n\n\n\n\nWSUS\n\n\n\n\nInstalling WSUS on Windows Server “8” Beta using PowerShell\n\n\n\n\n\n\nMar 20, 2012\n\n\n\n\n\n\n  \n\n\n\n\nBest Practices for Securing WSUS with SSL\n\n\n\n\n\n\n\nWSUS\n\n\n\n\nBest Practices for Securing WSUS with SSL\n\n\n\n\n\n\nAug 12, 2011\n\n\n\n\n\n\n  \n\n\n\n\nGuidance about WSUS on a Domain Controller\n\n\n\n\n\n\n\nWSUS\n\n\n\n\nGuidance about WSUS on a Domain Controller\n\n\n\n\n\n\nAug 6, 2011\n\n\n\n\n\n\n  \n\n\n\n\nPowerShell Core Release Improvements\n\n\n\n\n\n\n\nPowerShell\n\n\n\n\nPowerShell Core Release Improvements\n\n\n\n\n\n\nApr 9, 2010\n\n\n\n\n\n\n  \n\n\n\n\nFinding machines not compliant with a specific security bulletin\n\n\n\n\n\n\n\nWSUS\n\n\n\n\nFinding machines not compliant with a specific security bulletin\n\n\n\n\n\n\nJul 7, 2008\n\n\n\n\n\n\nNo matching items"
+  }
+]

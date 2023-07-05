@@ -1,62 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://travis.ez13.net/wsus/2008/07/07/Wsus-reporting.html</loc>
-<lastmod>2008-07-07T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/wsus/2011/08/06/wsus-dc-best-practices.html</loc>
-<lastmod>2011-08-06T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/wsus/2011/08/12/wsus-best-practices.html</loc>
-<lastmod>2011-08-12T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/wsus/2012/03/20/wsus-install-win-8-preview.html</loc>
-<lastmod>2012-03-20T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/dsc/2014/01/21/Secure-dsc-cred.html</loc>
-<lastmod>2014-01-21T00:00:00-06:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/dsc/2015/10/01/WMF-4-dsc-ext-asm.html</loc>
-<lastmod>2015-10-01T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/dsc/2015/10/02/WMF-4-dsc-ext-arm.html</loc>
-<lastmod>2015-10-02T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/dsc/2015/10/21/map-dsc-ext-downloads.html</loc>
-<lastmod>2015-10-21T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/dsc/2016/04/19/decrypt-dsc-mof.html</loc>
-<lastmod>2016-04-19T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/powershell/2019/04/09/powershell-release-improvements.html</loc>
-<lastmod>2019-04-09T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/2020/05/06/sierpinski.html</loc>
-<lastmod>2020-05-06T00:00:00-05:00</lastmod>
-</url>
-<url>
-<loc>https://travis.ez13.net/about/</loc>
-</url>
-<url>
-<loc>https://travis.ez13.net/disclaimer/</loc>
-</url>
-<url>
-<loc>https://travis.ez13.net/</loc>
-</url>
-<url>
-<loc>https://travis.ez13.net/search/</loc>
-</url>
-<url>
-<loc>https://travis.ez13.net/categories/</loc>
-</url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/about.html</loc>
+    <lastmod>2023-07-05T22:14:03.250Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2011-08-12-wsus-best-practices.html</loc>
+    <lastmod>2023-07-05T22:14:01.878Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2008-07-07-Wsus-reporting.html</loc>
+    <lastmod>2023-07-05T22:14:01.090Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2015-10-21-map-dsc-ext-downloads.html</loc>
+    <lastmod>2023-07-05T22:14:00.142Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2016-04-19-decrypt-dsc-mof.html</loc>
+    <lastmod>2023-07-05T22:13:59.029Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2020-05-06-sierpinski.html</loc>
+    <lastmod>2023-07-05T22:13:57.869Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2012-03-20-wsus-install-win-8-preview.html</loc>
+    <lastmod>2023-07-05T22:13:56.577Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/disclaimer.html</loc>
+    <lastmod>2023-07-05T22:13:55.761Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2015-10-01-WMF-4-dsc-ext-asm.html</loc>
+    <lastmod>2023-07-05T22:13:57.149Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2019-04-09-powershell-release-improvements.html</loc>
+    <lastmod>2023-07-05T22:13:58.409Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2014-01-21-Secure-dsc-cred.html</loc>
+    <lastmod>2023-07-05T22:13:59.585Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2015-10-02-WMF-4-dsc-ext-arm.html</loc>
+    <lastmod>2023-07-05T22:14:00.670Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/posts/2011-08-06-wsus-dc-best-practices.html</loc>
+    <lastmod>2023-07-05T22:14:01.486Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/TravisEz13/travisez13/index.html</loc>
+    <lastmod>2023-07-05T22:14:02.922Z</lastmod>
+  </url>
 </urlset>

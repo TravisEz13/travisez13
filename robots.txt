@@ -1,1 +1,1 @@
-Sitemap: https://travis.ez13.net/sitemap.xml
+Sitemap: https://github.com/TravisEz13/travisez13/sitemap.xml
