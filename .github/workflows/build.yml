@@ -5,7 +5,7 @@ on:
 name: Quarto Render
 
 jobs:
-  build-deploy:
+  build-render:
     runs-on: ubuntu-latest
     permissions:
       contents: write
