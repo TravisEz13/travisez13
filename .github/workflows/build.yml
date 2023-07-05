@@ -27,4 +27,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_PAT }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: travisez13
-          directory: '_site'
+          directory: 'quarto/_site'
