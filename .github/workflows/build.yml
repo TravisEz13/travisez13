@@ -20,3 +20,11 @@ jobs:
         uses: quarto-dev/quarto-actions/render@v2
         with:
           path: quarto
+
+      - name: Publish
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_PAT }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: travisez13
+          directory: '_site'
