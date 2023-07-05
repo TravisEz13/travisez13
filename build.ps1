@@ -1,1 +1,1 @@
-quarto render ./quarto/ --output-dir ../gh-pages
+quarto render ./quarto/ --output-dir ../docs
