@@ -1,0 +1,10 @@
+---
+title: "Work Disclaimer"
+#image: https://en.gravatar.com/userimage/27750845/0e675e836fda5b82555b24252ba28bde.jpeg
+about:
+  template: jolla
+---
+
+# Disclaimer work makes me put up
+
+The opinions and views expressed in this blog are those of the author and do not necessarily state or reflect those of Microsoft.

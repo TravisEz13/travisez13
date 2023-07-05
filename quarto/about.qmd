@@ -1,0 +1,23 @@
+---
+title: "About"
+image: https://en.gravatar.com/userimage/27750845/0e675e836fda5b82555b24252ba28bde.jpeg
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/TravisPlunk
+#    - icon: linkedin
+#      text: LinkedIn
+#      href: https://linkedin.com/
+    - icon: github
+      text: Github
+      href: https://github.com/travisez13
+
+---
+
+I'm Travis Plunk. I'm a Senior Software Engineer at Microsoft. I've worked at Microsoft for over 19+ years. I've worked on Commerce Server, Windows Update, Windows Server Update Service, PowerShell Desired State Configuration and currently working on PowerShell Core.
+
+* [Blog Posts](/)
+
+[Work Disclaimer](/disclaimer.html)
