@@ -54,7 +54,7 @@ Although this design does not technically reduce the number of parts, one signif
 
 I'm not going to discuss it much, but in order to coordinate this work we are keeping diagram of the build.  I'll include it here.  If you want me to post another blog on the details, please leave a comment.
 
-![diagram](https://raw.githubusercontent.com/PowerShell/PowerShell/master/tools/releaseBuild/azureDevOps/diagram.svg?sanitize=true)
+![diagram](/images/build-diagram-2019.svg)
 
 ## What is left to do
 
