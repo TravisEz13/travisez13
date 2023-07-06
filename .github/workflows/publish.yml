@@ -2,6 +2,8 @@ on:
   workflow_dispatch:
   push:
     branches: main
+  pull_request:
+    branches: main
 
 name: Quarto Publish
 
@@ -17,10 +19,15 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render and Publish
-        uses: quarto-dev/quarto-actions/publish@v2
+      - name: Render
+        uses: quarto-dev/quarto-actions/render@v2
         with:
-          target: gh-pages
           path: quarto
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_PAT }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: travisez13
+          directory: 'quarto/_site'
