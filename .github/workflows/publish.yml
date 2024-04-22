@@ -11,9 +11,10 @@ permissions:
   contents: read
 
 jobs:
-  build-deploy:
+  deployment:
     runs-on: ubuntu-latest
-    environment: cloudflare
+    environment: 
+      name: cloudflare
     permissions:
       contents: write
     steps:
@@ -37,6 +38,6 @@ jobs:
         uses: cloudflare/pages-action@f0a1cd58cd66095dee69bfa18fa5efd1dde93bca # 1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_PAT }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           projectName: travisez13
           directory: 'quarto/_site'
