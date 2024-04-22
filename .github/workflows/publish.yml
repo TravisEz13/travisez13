@@ -7,27 +7,38 @@ on:
 
 name: Quarto Publish
 
+permissions:
+  contents: read
+
 jobs:
-  build-deploy:
+  deployment:
     runs-on: ubuntu-latest
+    environment: 
+      name: cloudflare
     permissions:
       contents: write
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+        uses: quarto-dev/quarto-actions/setup@c1b50d36cf3c22b3dc7e530bd1b36634e824e545 # v2.1.4
 
       - name: Render
-        uses: quarto-dev/quarto-actions/render@v2
+        uses: quarto-dev/quarto-actions/render@c1b50d36cf3c22b3dc7e530bd1b36634e824e545 # v2.1.4
         with:
           path: quarto
 
       - name: Publish
-        uses: cloudflare/pages-action@1
+        uses: cloudflare/pages-action@f0a1cd58cd66095dee69bfa18fa5efd1dde93bca # 1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_PAT }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           projectName: travisez13
           directory: 'quarto/_site'
+        if: github.event_name != 'pull_request'
