@@ -46,8 +46,6 @@ jobs:
   render-only:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    environment: 
-      name: cloudflare
     permissions:
       contents: write
     steps:
