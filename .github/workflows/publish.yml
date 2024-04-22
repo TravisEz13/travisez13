@@ -13,6 +13,7 @@ permissions:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    environment: cloudflare
     permissions:
       contents: write
     steps:
