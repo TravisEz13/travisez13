@@ -41,3 +41,4 @@ jobs:
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           projectName: travisez13
           directory: 'quarto/_site'
+        if: github.event_name != 'pull_request'
